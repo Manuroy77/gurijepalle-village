@@ -31,11 +31,11 @@
       margin: 0;
       background: var(--cream);
       color: var(--text);
-      font-family: 'Noto Sans Telugu', sans-serif;
+      font-family: "Noto Sans Telugu", sans-serif;
     }
 
     .telugu {
-      font-family: 'Noto Serif Telugu', serif;
+      font-family: "Noto Serif Telugu", serif;
     }
 
     .container {
@@ -75,8 +75,8 @@
       align-items: center;
       color: white;
       background:
-        linear-gradient(90deg, rgba(18,53,31,.86), rgba(18,53,31,.2)),
-        url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1800&q=85')
+        linear-gradient(90deg, rgba(18, 53, 31, .86), rgba(18, 53, 31, .2)),
+        url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1800&q=85")
         center/cover;
     }
 
@@ -116,6 +116,11 @@
       font-weight: bold;
       cursor: pointer;
       margin: 10px 8px 0 0;
+    }
+
+    .btn:disabled {
+      opacity: .6;
+      cursor: not-allowed;
     }
 
     .btn-outline {
@@ -164,20 +169,12 @@
       background: var(--light);
     }
 
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-
     .upload-box {
       background: white;
       border-radius: 18px;
       padding: 24px;
       margin: 28px 0;
-      box-shadow: 0 3px 15px rgba(30,60,35,.06);
+      box-shadow: 0 3px 15px rgba(30, 60, 35, .06);
     }
 
     .upload-box h3 {
@@ -249,6 +246,7 @@
       margin-top: 12px;
       font-size: 14px;
       color: var(--green);
+      white-space: pre-wrap;
     }
 
     .feed {
@@ -261,7 +259,7 @@
       background: white;
       border-radius: 15px;
       padding: 18px;
-      box-shadow: 0 3px 15px rgba(30,60,35,.05);
+      box-shadow: 0 3px 15px rgba(30, 60, 35, .05);
     }
 
     .post img {
@@ -422,18 +420,16 @@
 
     <section class="community" id="community">
       <div class="container">
-        <div class="section-head">
-          <div>
-            <div class="label">Village community</div>
+        <div>
+          <div class="label">Village community</div>
 
-            <h2 class="telugu">
-              గ్రామ ఫోటోలు
-            </h2>
+          <h2 class="telugu">
+            గ్రామ ఫోటోలు
+          </h2>
 
-            <p class="muted">
-              మన గ్రామ ఫోటోలను అప్‌లోడ్ చేసి అందరితో పంచుకోండి.
-            </p>
-          </div>
+          <p class="muted">
+            మన గ్రామ ఫోటోలను అప్‌లోడ్ చేసి అందరితో పంచుకోండి.
+          </p>
         </div>
 
         <div class="upload-box">
@@ -454,19 +450,19 @@
             <label>Ratios</label>
 
             <div class="ratios">
-              <button class="ratio-btn active" data-ratio="1 / 1">
+              <button type="button" class="ratio-btn active" data-ratio="1 / 1">
                 1:1
               </button>
 
-              <button class="ratio-btn" data-ratio="4 / 5">
+              <button type="button" class="ratio-btn" data-ratio="4 / 5">
                 4:5
               </button>
 
-              <button class="ratio-btn" data-ratio="16 / 9">
+              <button type="button" class="ratio-btn" data-ratio="16 / 9">
                 16:9
               </button>
 
-              <button class="ratio-btn" data-ratio="9 / 16">
+              <button type="button" class="ratio-btn" data-ratio="9 / 16">
                 9:16
               </button>
             </div>
@@ -489,7 +485,7 @@
             ></textarea>
           </div>
 
-          <button class="btn" id="publishBtn">
+          <button type="button" class="btn" id="publishBtn">
             Publish Photo
           </button>
 
@@ -534,12 +530,17 @@
     © 2026 గురిజేపల్లి గ్రామం • Made with love for our village
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <script>
     const SUPABASE_URL =
       "https://wxspgshtgcgkjctlckxy.supabase.co";
 
     const SUPABASE_KEY =
       "sb_publishable_KjU87yCYbuzdiV3_pi6uiQ_6H35oOvj";
+
+    const supabaseClient =
+      window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     const photoInput = document.getElementById("photoInput");
     const preview = document.getElementById("preview");
@@ -551,6 +552,7 @@
 
     let selectedFile = null;
     let selectedRatio = "1 / 1";
+    let previewUrl = null;
 
     const demoPosts = [
       {
@@ -561,16 +563,24 @@
       }
     ];
 
-    let uploadedPosts =
-      JSON.parse(localStorage.getItem("gurijepallePhotos") || "[]");
+    function setStatus(message, isError = false) {
+      status.textContent = message;
+      status.style.color = isError ? "#b33a3a" : "var(--green)";
+    }
 
     function updatePreview() {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+        previewUrl = null;
+      }
+
       if (!selectedFile) {
         previewWrap.style.display = "none";
         return;
       }
 
-      preview.src = URL.createObjectURL(selectedFile);
+      previewUrl = URL.createObjectURL(selectedFile);
+      preview.src = previewUrl;
       preview.style.aspectRatio = selectedRatio;
       previewWrap.style.display = "block";
     }
@@ -578,20 +588,28 @@
     photoInput.addEventListener("change", function () {
       selectedFile = this.files[0] || null;
 
-      if (selectedFile && !selectedFile.type.startsWith("image/")) {
-        status.textContent = "దయచేసి image file మాత్రమే ఎంచుకోండి.";
-        selectedFile = null;
+      if (!selectedFile) {
+        updatePreview();
         return;
       }
 
-      if (selectedFile && selectedFile.size > 8 * 1024 * 1024) {
-        status.textContent = "Photo size 8MB కంటే తక్కువగా ఉండాలి.";
+      if (!selectedFile.type.startsWith("image/")) {
+        setStatus("దయచేసి image file మాత్రమే ఎంచుకోండి.", true);
         selectedFile = null;
         this.value = "";
+        updatePreview();
         return;
       }
 
-      status.textContent = "";
+      if (selectedFile.size > 8 * 1024 * 1024) {
+        setStatus("Photo size 8MB కంటే తక్కువగా ఉండాలి.", true);
+        selectedFile = null;
+        this.value = "";
+        updatePreview();
+        return;
+      }
+
+      setStatus("");
       updatePreview();
     });
 
@@ -616,10 +634,54 @@
         .replaceAll("'", "&#039;");
     }
 
-    function showPosts() {
+    function formatDate(value) {
+      if (!value) return "గ్రామ ఫోటో";
+
+      return new Date(value).toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+      });
+    }
+
+    async function loadPosts() {
+      feed.innerHTML = `
+        <p class="muted">ఫోటోలు లోడ్ అవుతున్నాయి...</p>
+      `;
+
+      const { data, error } = await supabaseClient
+        .from("posts")
+        .select("id, image_url, description, ratio, created_at")
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        console.error(error);
+
+        feed.innerHTML = `
+          <p class="muted">
+            ఫోటోలు లోడ్ చేయడంలో సమస్య వచ్చింది. దయచేసి మళ్లీ ప్రయత్నించండి.
+          </p>
+        `;
+
+        return;
+      }
+
+      showPosts(data || []);
+    }
+
+    function showPosts(posts) {
       feed.innerHTML = "";
 
-      const allPosts = [...demoPosts, ...uploadedPosts];
+      const allPosts = [
+        ...demoPosts,
+        ...posts.map(post => ({
+          id: post.id,
+          image: post.image_url,
+          description: post.description,
+          ratio: post.ratio,
+          createdAt: post.created_at
+        }))
+      ];
 
       if (!allPosts.length) {
         feed.innerHTML = `
@@ -647,9 +709,12 @@
           </p>
 
           <div class="post-actions">
-            <small>గ్రామ ఫోటో</small>
+            <small>
+              ${escapeHtml(formatDate(post.createdAt))}
+            </small>
 
             <button
+              type="button"
               class="btn btn-danger"
               data-report="${escapeHtml(post.id)}"
             >
@@ -694,53 +759,94 @@
       });
     }
 
-    publishBtn.addEventListener("click", function () {
+    publishBtn.addEventListener("click", async function () {
       if (!selectedFile) {
-        status.textContent = "ముందుగా photo ఎంచుకోండి.";
+        setStatus("ముందుగా photo ఎంచుకోండి.", true);
         return;
       }
 
       const text = description.value.trim();
 
       if (!text) {
-        status.textContent = "Photo description రాయండి.";
+        setStatus("Photo description రాయండి.", true);
         description.focus();
         return;
       }
 
-      const reader = new FileReader();
+      publishBtn.disabled = true;
+      publishBtn.textContent = "Uploading...";
+      setStatus("Photo upload అవుతోంది...");
 
-      reader.onload = function (event) {
-        const newPost = {
-          id: "photo-" + Date.now(),
-          image: event.target.result,
-          description: text,
-          ratio: selectedRatio,
-          createdAt: new Date().toISOString()
-        };
+      try {
+        const fileExtension =
+          selectedFile.name.split(".").pop().toLowerCase() || "jpg";
 
-        uploadedPosts.unshift(newPost);
+        const fileName =
+          Date.now() +
+          "-" +
+          Math.random().toString(36).slice(2) +
+          "." +
+          fileExtension;
 
-        localStorage.setItem(
-          "gurijepallePhotos",
-          JSON.stringify(uploadedPosts)
-        );
+        const filePath = "village/" + fileName;
+
+        const { error: uploadError } =
+          await supabaseClient.storage
+            .from("photos")
+            .upload(filePath, selectedFile, {
+              cacheControl: "3600",
+              upsert: false,
+              contentType: selectedFile.type
+            });
+
+        if (uploadError) {
+          throw uploadError;
+        }
+
+        const { data: publicUrlData } =
+          supabaseClient.storage
+            .from("photos")
+            .getPublicUrl(filePath);
+
+        const imageUrl = publicUrlData.publicUrl;
+
+        const { error: databaseError } =
+          await supabaseClient
+            .from("posts")
+            .insert({
+              image_url: imageUrl,
+              description: text,
+              ratio: selectedRatio
+            });
+
+        if (databaseError) {
+          throw databaseError;
+        }
 
         photoInput.value = "";
         description.value = "";
         selectedFile = null;
-        previewWrap.style.display = "none";
+        updatePreview();
 
-        status.textContent =
-          "Photo successfully published on this browser.";
+        setStatus(
+          "Photo successfully published. అందరికీ కనిపిస్తుంది."
+        );
 
-        showPosts();
-      };
+        await loadPosts();
+      } catch (error) {
+        console.error(error);
 
-      reader.readAsDataURL(selectedFile);
+        setStatus(
+          "Upload failed: " + (error.message || "Unknown error"),
+          true
+        );
+      } finally {
+        publishBtn.disabled = false;
+        publishBtn.textContent = "Publish Photo";
+      }
     });
 
-    showPosts();
+    loadPosts();
   </script>
 </body>
 </html>
