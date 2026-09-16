@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="te">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>గురిజేపల్లి గ్రామం</title>
+  <title>MANUROY • గురిజేపల్లి</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Telugu:wght@400;600;700&family=Noto+Sans+Telugu:wght@400;500;600&display=swap" rel="stylesheet">
@@ -12,10 +13,14 @@
   <style>
     :root {
       --green: #244b32;
+      --dark: #193825;
       --light: #eaf1e5;
       --cream: #faf9f3;
+      --white: #ffffff;
       --text: #243126;
+      --muted: #657267;
       --gold: #e5c078;
+      --border: #d7e2d2;
       --danger: #b33a3a;
     }
 
@@ -34,41 +39,136 @@
       font-family: "Noto Sans Telugu", sans-serif;
     }
 
-    .telugu {
-      font-family: "Noto Serif Telugu", serif;
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    a {
+      color: inherit;
     }
 
     .container {
       width: 100%;
       max-width: 1100px;
       margin: auto;
-      padding: 0 22px;
+      padding: 0 20px;
     }
 
     header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
       background: var(--green);
       color: white;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, .12);
     }
 
     nav {
+      min-height: 76px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 15px;
-      padding: 20px 0;
+      justify-content: space-between;
+      gap: 16px;
     }
 
-    .logo {
-      font-size: 24px;
-      font-weight: bold;
-      white-space: nowrap;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
     }
 
-    nav a {
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: var(--gold);
+      color: var(--dark);
+      font-weight: 900;
+      font-size: 20px;
+    }
+
+    .brand-name {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: .5px;
+    }
+
+    .brand-sub {
+      font-size: 10px;
+      color: #d9e5d4;
+      letter-spacing: 1px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-links a,
+    .menu-button {
       color: white;
       text-decoration: none;
+      background: transparent;
+      border: 0;
+      padding: 10px 12px;
+      border-radius: 9px;
+      cursor: pointer;
       font-size: 13px;
-      margin-left: 15px;
+    }
+
+    .nav-links a:hover,
+    .menu-button:hover {
+      background: rgba(255, 255, 255, .12);
+    }
+
+    .menu-wrap {
+      position: relative;
+    }
+
+    .menu-panel {
+      position: absolute;
+      right: 0;
+      top: 48px;
+      width: 190px;
+      background: white;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 8px;
+      box-shadow: 0 10px 35px rgba(25, 56, 37, .18);
+      display: none;
+    }
+
+    .menu-panel.open {
+      display: block;
+    }
+
+    .menu-panel button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: 0;
+      padding: 12px;
+      border-radius: 9px;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    .menu-panel button:hover {
+      background: var(--light);
     }
 
     .hero {
@@ -77,34 +177,45 @@
       align-items: center;
       color: white;
       background:
-        linear-gradient(
-          90deg,
-          rgba(18, 53, 31, 0.88),
-          rgba(18, 53, 31, 0.2)
-        ),
+        linear-gradient(90deg, rgba(18, 53, 31, .9), rgba(18, 53, 31, .2)),
         url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1800&q=85")
         center / cover;
     }
 
     .hero-content {
       max-width: 650px;
-      padding: 65px 0;
+      padding: 70px 0;
+    }
+
+    .label {
+      color: #71866c;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .hero .label {
+      color: #d5e1c9;
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.5;
     }
 
     h1 {
       font-size: clamp(38px, 7vw, 72px);
-      line-height: 1.4;
-      margin: 10px 0;
+      margin: 12px 0;
     }
 
     h2 {
-      font-size: 32px;
-      line-height: 1.5;
+      font-size: clamp(28px, 4vw, 40px);
       margin: 10px 0;
     }
 
     h3 {
-      line-height: 1.5;
+      margin: 8px 0;
     }
 
     p {
@@ -113,6 +224,10 @@
 
     .hero p {
       font-size: 17px;
+    }
+
+    .telugu {
+      font-family: "Noto Serif Telugu", serif;
     }
 
     .btn {
@@ -130,7 +245,7 @@
     }
 
     .btn:disabled {
-      opacity: 0.6;
+      opacity: .55;
       cursor: not-allowed;
     }
 
@@ -140,32 +255,20 @@
       color: white;
     }
 
-    .btn-danger {
-      background: #f4d7d7;
-      color: var(--danger);
-      padding: 9px 14px;
+    .btn-small {
+      padding: 8px 13px;
       font-size: 12px;
+      margin: 0;
     }
 
     section {
       padding: 65px 0;
     }
 
-    .label {
-      color: #71866c;
-      font-size: 12px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    .muted {
-      color: #657267;
-    }
-
     .about {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 40px;
+      gap: 42px;
       align-items: center;
     }
 
@@ -173,7 +276,11 @@
       width: 100%;
       aspect-ratio: 4 / 3;
       object-fit: cover;
-      border-radius: 15px;
+      border-radius: 18px;
+    }
+
+    .muted {
+      color: var(--muted);
     }
 
     .community {
@@ -188,21 +295,38 @@
       flex-wrap: wrap;
     }
 
-    .upload-box {
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 25px 0;
+    }
+
+    .tab {
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--green);
+      padding: 10px 18px;
+      border-radius: 25px;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      background: var(--green);
+      color: white;
+    }
+
+    .upload-box,
+    .search-box {
       background: white;
       border-radius: 18px;
       padding: 24px;
-      margin: 28px 0;
-      box-shadow: 0 3px 15px rgba(30, 60, 35, 0.06);
-    }
-
-    .upload-box h3 {
-      margin-top: 0;
-      font-size: 24px;
+      margin: 25px 0;
+      box-shadow: 0 3px 15px rgba(30, 60, 35, .06);
     }
 
     .field {
-      margin: 18px 0;
+      margin: 17px 0;
     }
 
     .field label {
@@ -211,19 +335,19 @@
       margin-bottom: 8px;
     }
 
-    input[type="file"],
+    input,
     textarea,
     select {
       width: 100%;
       border: 1px solid #cbd9c5;
       border-radius: 10px;
       padding: 12px;
-      font-family: inherit;
-      background: #fff;
+      background: white;
+      color: var(--text);
     }
 
     textarea {
-      min-height: 110px;
+      min-height: 105px;
       resize: vertical;
     }
 
@@ -234,7 +358,7 @@
     }
 
     .ratio-btn {
-      border: 1px solid #cbd9c5;
+      border: 1px solid var(--border);
       background: white;
       color: var(--green);
       padding: 9px 14px;
@@ -265,7 +389,6 @@
     .status {
       margin-top: 12px;
       font-size: 14px;
-      color: var(--green);
       overflow-wrap: anywhere;
     }
 
@@ -277,25 +400,35 @@
 
     .post {
       background: white;
-      border-radius: 15px;
+      border-radius: 16px;
       padding: 18px;
-      box-shadow: 0 3px 15px rgba(30, 60, 35, 0.05);
+      box-shadow: 0 3px 15px rgba(30, 60, 35, .05);
       min-width: 0;
     }
 
     .post img {
       display: block;
       width: 100%;
-      max-height: 500px;
+      max-height: 520px;
       object-fit: cover;
-      border-radius: 10px;
+      border-radius: 12px;
       margin: 12px 0;
       background: #edf2eb;
     }
 
     .post h3 {
       font-size: 21px;
-      margin: 10px 0;
+    }
+
+    .post small {
+      color: #829080;
+    }
+
+    .post-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
     }
 
     .tag {
@@ -304,23 +437,93 @@
       font-weight: bold;
     }
 
-    .post small {
-      color: #829080;
-    }
-
     .post-actions {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
-      margin-top: 14px;
+      margin-top: 15px;
+    }
+
+    .action-btn {
+      border: 1px solid var(--border);
+      background: #f8fbf6;
+      color: var(--green);
+      border-radius: 20px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .action-btn.liked {
+      background: var(--green);
+      color: white;
+    }
+
+    .comments {
+      display: none;
+      border-top: 1px solid var(--border);
+      margin-top: 16px;
+      padding-top: 16px;
+    }
+
+    .comments.open {
+      display: block;
+    }
+
+    .comment {
+      background: #f4f8f1;
+      border-radius: 10px;
+      padding: 10px;
+      margin: 8px 0;
+      font-size: 13px;
+    }
+
+    .comment strong {
+      color: var(--green);
+    }
+
+    .reply {
+      margin-left: 20px;
+      border-left: 2px solid #cbd9c5;
+      padding-left: 10px;
+    }
+
+    .comment-form {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .empty {
+      padding: 35px;
+      text-align: center;
+      color: var(--muted);
+      background: white;
+      border-radius: 15px;
+    }
+
+    .about-card {
+      max-width: 850px;
+      margin: auto;
+      text-align: center;
+      background: white;
+      padding: 42px 28px;
+      border-radius: 22px;
+      box-shadow: 0 3px 15px rgba(30, 60, 35, .06);
+    }
+
+    .about-card .big-line {
+      color: var(--green);
+      font-size: clamp(25px, 4vw, 42px);
+      font-weight: 800;
+      line-height: 1.5;
     }
 
     .location {
       background: var(--green);
       color: white;
-      border-radius: 15px;
+      border-radius: 18px;
       padding: 35px;
       display: flex;
       justify-content: space-between;
@@ -330,25 +533,24 @@
 
     footer {
       text-align: center;
-      padding: 25px;
-      background: #193825;
+      padding: 28px 20px;
+      background: var(--dark);
       color: #d7e1d5;
       font-size: 13px;
     }
 
-    @media (max-width: 700px) {
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 760px) {
       .about,
       .feed {
         grid-template-columns: 1fr;
       }
 
-      nav {
-        align-items: flex-start;
-      }
-
-      nav a {
-        margin-left: 7px;
-        font-size: 11px;
+      .nav-links {
+        display: none;
       }
 
       .hero {
@@ -359,8 +561,12 @@
         display: block;
       }
 
-      h2 {
-        font-size: 28px;
+      .brand-name {
+        font-size: 19px;
+      }
+
+      .brand-sub {
+        font-size: 9px;
       }
     }
   </style>
@@ -370,24 +576,41 @@
   <header>
     <div class="container">
       <nav>
-        <div class="logo telugu">గురిజేపల్లి</div>
+        <a class="brand" href="#home">
+          <div class="brand-mark">M</div>
+          <div>
+            <div class="brand-name">MANUROY</div>
+            <div class="brand-sub">మన ఊరు • మన మాట</div>
+          </div>
+        </a>
 
-        <div>
-          <a href="#about">మా ఊరు</a>
-          <a href="#community">ఫోటోలు</a>
-          <a href="#location">స్థానం</a>
+        <div class="nav-links">
+          <a href="#home">Home</a>
+          <a href="#photos">Photos</a>
+          <a href="#messages">Messages</a>
+          <a href="#about">About</a>
+        </div>
+
+        <div class="menu-wrap">
+          <button class="menu-button" id="menuButton" type="button">⋮</button>
+
+          <div class="menu-panel" id="menuPanel">
+            <button type="button" data-go="home">🏠 Home</button>
+            <button type="button" data-go="photos">📷 Photos</button>
+            <button type="button" data-go="messages">💬 Messages</button>
+            <button type="button" data-go="search">🔎 Search</button>
+            <button type="button" data-go="about">🌱 About</button>
+          </div>
         </div>
       </nav>
     </div>
   </header>
 
   <main>
-    <section class="hero">
+    <section class="hero" id="home">
       <div class="container">
         <div class="hero-content">
-          <div class="label" style="color:#d5e1c9;">
-            Welcome to our village
-          </div>
+          <div class="label">A digital home for our village stories</div>
 
           <h1 class="telugu">
             మన ఊరు,<br>
@@ -395,64 +618,54 @@
           </h1>
 
           <p>
-            పచ్చని పొలాలు, చెట్ల నీడలు, మనసైన మనుషులు.
-            ఇదే మా గురిజేపల్లి గ్రామం.
+            మన గ్రామ జ్ఞాపకాలు, ఫోటోలు, అభిప్రాయాలు
+            అందరితో పంచుకునే మన చిన్న digital space.
           </p>
 
-          <a class="btn" href="#community">
-            గ్రామ ఫోటోలు ↓
-          </a>
-
-          <a
-            class="btn btn-outline"
-            href="https://maps.app.goo.gl/zqwS8iWCt6gz8BNv9"
-            target="_blank"
-            rel="noopener"
-          >
-            📍 మ్యాప్ చూడండి
-          </a>
+          <a class="btn" href="#photos">ఫోటోలు చూడండి ↓</a>
+          <a class="btn btn-outline" href="#messages">అభిప్రాయం రాయండి</a>
         </div>
       </div>
     </section>
 
     <section id="about">
-      <div class="container about">
-        <div>
-          <div class="label">Our village</div>
+      <div class="container">
+        <div class="about-card">
+          <div class="label">About MANUROY</div>
 
-          <h2 class="telugu">
-            మట్టి వాసనలో<br>
-            మా జ్ఞాపకాలు
-          </h2>
+          <div class="big-line telugu">
+            మన ఊరి కథలు.<br>
+            మన వాళ్ల మాటలు.<br>
+            మన జ్ఞాపకాల చోటు.
+          </div>
 
           <p class="muted">
-            గురిజేపల్లి గ్రామానికి స్వాగతం. మన గ్రామంలోని
-            పచ్చని పొలాలు, చెట్లు, సంప్రదాయాలు, ప్రజల
-            జీవన విధానం గురించి ఈ వెబ్‌సైట్‌లో తెలుసుకోండి.
+            MANUROY అనేది మన గ్రామ జీవితం, ఫోటోలు,
+            జ్ఞాపకాలు, అభిప్రాయాలను ఒకే digital spaceలో
+            కలిపే చిన్న ప్రయత్నం.
           </p>
 
           <p class="muted">
-            మన గ్రామ ఫోటోలను ప్రతి ఒక్కరూ ఇక్కడ పంచుకోవచ్చు.
+            మన ఊరి ప్రత్యేకతను, మనుషుల అనుబంధాలను,
+            ప్రతి చిన్న మంచి క్షణాన్ని అందరితో పంచుకోవడానికి
+            ఈ platform రూపొందించబడింది.
+          </p>
+
+          <p>
+            <strong>Created from our village.</strong><br>
+            <strong>Built for our people.</strong><br>
+            <strong>Powered by MANUROY. ❤️</strong>
           </p>
         </div>
-
-        <img
-          src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=900&q=85"
-          alt="Village greenery"
-        >
       </div>
     </section>
 
-    <section class="community" id="community">
+    <section class="community" id="photos">
       <div class="container">
         <div class="section-head">
           <div>
             <div class="label">Village community</div>
-
-            <h2 class="telugu">
-              గ్రామ ఫోటోలు
-            </h2>
-
+            <h2 class="telugu">గ్రామ ఫోటోలు</h2>
             <p class="muted">
               మన గ్రామ ఫోటోలను అప్‌లోడ్ చేసి అందరితో పంచుకోండి.
             </p>
@@ -460,39 +673,26 @@
         </div>
 
         <div class="upload-box">
-          <h3 class="telugu">
-            ఫోటో అప్‌లోడ్ చేయండి
-          </h3>
+          <h3 class="telugu">ఫోటో అప్‌లోడ్ చేయండి</h3>
 
           <div class="field">
-            <label for="photoInput">Photo</label>
-
-            <input
-              id="photoInput"
-              type="file"
-              accept="image/*"
-            >
+            <label for="photoName">మీ పేరు</label>
+            <input id="photoName" maxlength="80" placeholder="మీ పేరు రాయండి">
           </div>
 
           <div class="field">
-            <label>Ratios</label>
+            <label for="photoInput">Photo</label>
+            <input id="photoInput" type="file" accept="image/*">
+          </div>
+
+          <div class="field">
+            <label>Ratio</label>
 
             <div class="ratios">
-              <button type="button" class="ratio-btn active" data-ratio="1 / 1">
-                1:1
-              </button>
-
-              <button type="button" class="ratio-btn" data-ratio="4 / 5">
-                4:5
-              </button>
-
-              <button type="button" class="ratio-btn" data-ratio="16 / 9">
-                16:9
-              </button>
-
-              <button type="button" class="ratio-btn" data-ratio="9 / 16">
-                9:16
-              </button>
+              <button type="button" class="ratio-btn active" data-ratio="1 / 1">1:1</button>
+              <button type="button" class="ratio-btn" data-ratio="4 / 5">4:5</button>
+              <button type="button" class="ratio-btn" data-ratio="16 / 9">16:9</button>
+              <button type="button" class="ratio-btn" data-ratio="9 / 16">9:16</button>
             </div>
           </div>
 
@@ -502,25 +702,69 @@
           </div>
 
           <div class="field">
-            <label for="description">
-              Description
-            </label>
-
-            <textarea
-              id="description"
-              maxlength="500"
-              placeholder="ఈ ఫోటో గురించి రాయండి..."
-            ></textarea>
+            <label for="description">Description</label>
+            <textarea id="description" maxlength="500" placeholder="ఈ ఫోటో గురించి రాయండి..."></textarea>
           </div>
 
-          <button type="button" class="btn" id="publishBtn">
-            Publish Photo
-          </button>
-
-          <div class="status" id="status"></div>
+          <button type="button" class="btn" id="publishBtn">Publish Photo</button>
+          <div class="status" id="photoStatus"></div>
         </div>
 
-        <div class="feed" id="feed"></div>
+        <div class="feed" id="photoFeed"></div>
+      </div>
+    </section>
+
+    <section id="messages">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="label">Village voices</div>
+            <h2 class="telugu">మన ఊరి అభిప్రాయాలు</h2>
+            <p class="muted">
+              మీ ఆలోచనలను, సూచనలను, అభిప్రాయాలను పంచుకోండి.
+            </p>
+          </div>
+        </div>
+
+        <div class="upload-box">
+          <h3 class="telugu">మీ అభిప్రాయం రాయండి</h3>
+
+          <div class="field">
+            <label for="opinionName">మీ పేరు</label>
+            <input id="opinionName" maxlength="80" placeholder="మీ పేరు రాయండి">
+          </div>
+
+          <div class="field">
+            <label for="opinionText">Opinion</label>
+            <textarea id="opinionText" maxlength="1000" placeholder="మీ అభిప్రాయం ఇక్కడ రాయండి..."></textarea>
+          </div>
+
+          <button type="button" class="btn" id="publishOpinionBtn">
+            Publish Opinion
+          </button>
+
+          <div class="status" id="opinionStatus"></div>
+        </div>
+
+        <div class="feed" id="opinionFeed"></div>
+      </div>
+    </section>
+
+    <section id="search">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="label">Find village stories</div>
+            <h2 class="telugu">Search</h2>
+          </div>
+        </div>
+
+        <div class="search-box">
+          <input id="searchInput" placeholder="Photos లేదా opinions search చేయండి...">
+          <div class="status" id="searchStatus"></div>
+        </div>
+
+        <div class="feed" id="searchFeed"></div>
       </div>
     </section>
 
@@ -528,17 +772,9 @@
       <div class="container">
         <div class="location">
           <div>
-            <div class="label" style="color:#b9d0b4;">
-              Find our village
-            </div>
-
-            <h2 class="telugu">
-              గురిజేపల్లి ఎక్కడ ఉంది?
-            </h2>
-
-            <p>
-              మా గ్రామాన్ని Google Mapsలో చూడండి.
-            </p>
+            <div class="label" style="color:#b9d0b4;">Find our village</div>
+            <h2 class="telugu">గురిజేపల్లి ఎక్కడ ఉంది?</h2>
+            <p>మా గ్రామాన్ని Google Mapsలో చూడండి.</p>
           </div>
 
           <a
@@ -555,17 +791,14 @@
   </main>
 
   <footer>
-    © 2026 గురిజేపల్లి గ్రామం • Made with love for our village
+    © 2026 గురిజేపల్లి గ్రామం • Built with ❤️ by MANUROY
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script>
-    const SUPABASE_URL =
-      "https://wxspgshtgcgkjctlckxy.supabase.co";
-
-    const SUPABASE_KEY =
-      "sb_publishable_KjU87yCYbuzdiV3_pi6uiQ_6H35oOvj";
+    const SUPABASE_URL = "https://wxspgshtgcgkjctlckxy.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_KjU87yCYbuzdiV3_pi6uiQ_6H35oOvj";
 
     const supabaseClient = window.supabase.createClient(
       SUPABASE_URL,
@@ -577,15 +810,43 @@
     const previewWrap = document.getElementById("previewWrap");
     const description = document.getElementById("description");
     const publishBtn = document.getElementById("publishBtn");
-    const status = document.getElementById("status");
-    const feed = document.getElementById("feed");
+    const photoStatus = document.getElementById("photoStatus");
+
+    const photoFeed = document.getElementById("photoFeed");
+    const opinionFeed = document.getElementById("opinionFeed");
+    const searchFeed = document.getElementById("searchFeed");
 
     let selectedFile = null;
     let selectedRatio = "1 / 1";
+    let allPhotos = [];
+    let allOpinions = [];
 
-    function setStatus(message, isError = false) {
-      status.textContent = message;
-      status.style.color = isError ? "#b33a3a" : "#244b32";
+    function setStatus(element, message, error = false) {
+      element.textContent = message;
+      element.style.color = error ? "#b33a3a" : "#244b32";
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function formatDate(value) {
+      if (!value) return "ఇటీవల";
+
+      const date = new Date(value);
+
+      if (Number.isNaN(date.getTime())) return "ఇటీవల";
+
+      return date.toLocaleDateString("te-IN", {
+        year: "numeric",
+        month: "short",
+        day: "numeric"
+      });
     }
 
     function updatePreview() {
@@ -595,7 +856,7 @@
         return;
       }
 
-      if (preview.src) {
+      if (preview.src.startsWith("blob:")) {
         URL.revokeObjectURL(preview.src);
       }
 
@@ -613,7 +874,7 @@
       }
 
       if (!selectedFile.type.startsWith("image/")) {
-        setStatus("దయచేసి image file మాత్రమే ఎంచుకోండి.", true);
+        setStatus(photoStatus, "Image file మాత్రమే ఎంచుకోండి.", true);
         selectedFile = null;
         this.value = "";
         updatePreview();
@@ -621,14 +882,14 @@
       }
 
       if (selectedFile.size > 8 * 1024 * 1024) {
-        setStatus("Photo size 8MB కంటే తక్కువగా ఉండాలి.", true);
+        setStatus(photoStatus, "Photo size 8MB కంటే తక్కువగా ఉండాలి.", true);
         selectedFile = null;
         this.value = "";
         updatePreview();
         return;
       }
 
-      setStatus("");
+      setStatus(photoStatus, "");
       updatePreview();
     });
 
@@ -638,240 +899,4 @@
           item.classList.remove("active");
         });
 
-        this.classList.add("active");
-        selectedRatio = this.dataset.ratio;
-        updatePreview();
-      });
-    });
-
-    function escapeHtml(value) {
-      return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-    }
-
-    function formatDate(dateValue) {
-      if (!dateValue) return "ఇటీవల";
-
-      const date = new Date(dateValue);
-
-      if (Number.isNaN(date.getTime())) {
-        return "ఇటీవల";
-      }
-
-      return date.toLocaleDateString("te-IN", {
-        year: "numeric",
-        month: "short",
-        day: "numeric"
-      });
-    }
-
-    async function showPosts() {
-      feed.innerHTML = `
-        <p class="muted">ఫోటోలు loading అవుతున్నాయి...</p>
-      `;
-
-      const { data, error } = await supabaseClient
-        .from("posts")
-        .select("id, image_url, description, ratio, created_at")
-        .order("created_at", { ascending: false });
-
-      if (error) {
-        console.error("Load posts error:", error);
-
-        feed.innerHTML = `
-          <p class="muted">
-            Photos load కాలేదు. Please refresh చేసి మళ్లీ try చెయ్యండి.
-          </p>
-        `;
-
-        return;
-      }
-
-      feed.innerHTML = "";
-
-      if (!data || data.length === 0) {
-        feed.innerHTML = `
-          <p class="muted">
-            ఇంకా ఫోటోలు లేవు. మొదటి ఫోటోను మీరు అప్‌లోడ్ చేయండి.
-          </p>
-        `;
-
-        return;
-      }
-
-      data.forEach(post => {
-        const card = document.createElement("article");
-        card.className = "post";
-
-        const imageUrl = post.image_url || "";
-        const postDescription = post.description || "వివరణ లేదు";
-        const postRatio = post.ratio || "16 / 9";
-
-        card.innerHTML = `
-          <div class="tag">ఫోటోలు</div>
-
-          <img
-            src="${escapeHtml(imageUrl)}"
-            alt="గురిజేపల్లి ఫోటో"
-            style="aspect-ratio:${escapeHtml(postRatio)};"
-            loading="lazy"
-          >
-
-          <p class="muted">
-            ${escapeHtml(postDescription)}
-          </p>
-
-          <div class="post-actions">
-            <small>${escapeHtml(formatDate(post.created_at))}</small>
-
-            <button
-              type="button"
-              class="btn btn-danger"
-              data-report="${escapeHtml(post.id)}"
-            >
-              Report Photo
-            </button>
-          </div>
-        `;
-
-        feed.appendChild(card);
-      });
-
-      document.querySelectorAll("[data-report]").forEach(button => {
-        button.addEventListener("click", async function () {
-          const postId = this.dataset.report;
-
-          const confirmed = confirm(
-            "ఈ ఫోటోను report చేయాలనుకుంటున్నారా?"
-          );
-
-          if (!confirmed) return;
-
-          this.disabled = true;
-          this.textContent = "Reporting...";
-
-          const { error } = await supabaseClient
-            .from("reports")
-            .insert({
-              post_id: postId,
-              reason: "User reported photo"
-            });
-
-          if (error) {
-            console.error("Report error:", error);
-
-            this.disabled = false;
-            this.textContent = "Report Photo";
-
-            alert("Report submit కాలేదు. మళ్లీ try చెయ్యండి.");
-            return;
-          }
-
-          this.textContent = "Reported";
-          alert("మీ report నమోదు చేయబడింది.");
-        });
-      });
-    }
-
-    publishBtn.addEventListener("click", async function () {
-      if (!selectedFile) {
-        setStatus("ముందుగా photo ఎంచుకోండి.", true);
-        return;
-      }
-
-      const text = description.value.trim();
-
-      if (!text) {
-        setStatus("Photo description రాయండి.", true);
-        description.focus();
-        return;
-      }
-
-      publishBtn.disabled = true;
-      publishBtn.textContent = "Uploading...";
-      setStatus("Photo upload అవుతోంది...");
-
-      try {
-        const fileExtension =
-          selectedFile.name.split(".").pop().toLowerCase();
-
-        const safeExtension =
-          fileExtension.replace(/[^a-z0-9]/gi, "") || "jpg";
-
-        const fileName =
-          Date.now() +
-          "-" +
-          Math.random().toString(36).substring(2) +
-          "." +
-          safeExtension;
-
-        const filePath = "village-photos/" + fileName;
-
-        const { error: uploadError } = await supabaseClient
-          .storage
-          .from("photos")
-          .upload(filePath, selectedFile, {
-            cacheControl: "3600",
-            upsert: false,
-            contentType: selectedFile.type
-          });
-
-        if (uploadError) {
-          console.error("Storage upload error:", uploadError);
-          throw new Error("Photo upload failed");
-        }
-
-        const { data: publicUrlData } =
-          supabaseClient
-            .storage
-            .from("photos")
-            .getPublicUrl(filePath);
-
-        const imageUrl = publicUrlData.publicUrl;
-
-        const { error: insertError } = await supabaseClient
-          .from("posts")
-          .insert({
-            image_url: imageUrl,
-            description: text,
-            ratio: selectedRatio
-          });
-
-        if (insertError) {
-          console.error("Database insert error:", insertError);
-          throw new Error("Post save failed");
-        }
-
-        photoInput.value = "";
-        description.value = "";
-        selectedFile = null;
-        previewWrap.style.display = "none";
-        preview.removeAttribute("src");
-
-        setStatus(
-          "Photo successfully published. అందరికీ కనిపిస్తుంది."
-        );
-
-        await showPosts();
-
-      } catch (error) {
-        console.error("Publish error:", error);
-
-        setStatus(
-          "Photo upload కాలేదు. Supabase settings check చెయ్యండి.",
-          true
-        );
-      }
-
-      publishBtn.disabled = false;
-      publishBtn.textContent = "Publish Photo";
-    });
-
-    showPosts();
-  </script>
-</body>
-</html>
+        this.c
