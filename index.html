@@ -1,980 +1,863 @@
 <!DOCTYPE html>
-<html lang="te">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>గురిజేపల్లి గ్రామం</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;500;600;700&family=Noto+Serif+Telugu:wght@400;600;700&display=swap" rel="stylesheet">
-
-<style>
-:root{
-  --green:#214d32;
-  --green-dark:#163b26;
-  --gold:#e8c477;
-  --cream:#faf9f3;
-  --white:#fff;
-  --text:#26352b;
-  --muted:#718078;
-  --line:#e0e8dc;
-  --soft:#edf3e9;
-}
-
-*{
-  box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
-body{
-  margin:0;
-  background:var(--cream);
-  color:var(--text);
-  font-family:"Noto Sans Telugu",sans-serif;
-  padding-bottom:85px;
-}
-
-button,input,textarea{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
-
-button:disabled{
-  opacity:.5;
-  cursor:not-allowed;
-}
-
-.container{
-  width:100%;
-  max-width:1100px;
-  margin:auto;
-  padding:0 24px;
-}
-
-.telugu{
-  font-family:"Noto Serif Telugu",serif;
-}
-
-.topbar{
-  position:sticky;
-  top:0;
-  z-index:20;
-  background:var(--green);
-  color:white;
-}
-
-.topbar-inner{
-  min-height:95px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-}
-
-.brand{
-  display:flex;
-  align-items:center;
-  gap:13px;
-}
-
-.location-logo{
-  width:62px;
-  height:62px;
-  border-radius:20px;
-  display:grid;
-  place-items:center;
-  background:var(--gold);
-  color:var(--green);
-  font-size:35px;
-}
-
-.brand h1{
-  margin:0;
-  font-size:27px;
-  line-height:1.2;
-}
-
-.brand p{
-  margin:5px 0 0;
-  color:#d6e3d6;
-  font-size:12px;
-}
-
-.menu-button{
-  width:55px;
-  height:52px;
-  border:0;
-  border-radius:16px;
-  background:rgba(255,255,255,.13);
-  color:white;
-  font-size:30px;
-}
-
-.menu-panel{
-  display:none;
-  background:var(--green-dark);
-  padding:10px 24px 18px;
-}
-
-.menu-panel.open{
-  display:block;
-}
-
-.menu-panel button{
-  width:100%;
-  display:block;
-  border:0;
-  background:transparent;
-  color:white;
-  text-align:left;
-  padding:13px 0;
-  font-size:16px;
-}
-
-.page{
-  display:none;
-}
-
-.page.active{
-  display:block;
-}
-
-.hero{
-  min-height:650px;
-  display:flex;
-  align-items:center;
-  color:white;
-  background:
-    linear-gradient(90deg,rgba(18,57,34,.9),rgba(18,57,34,.25)),
-    url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1800&q=85")
-    center/cover;
-}
-
-.hero-content{
-  max-width:680px;
-  padding:80px 0;
-}
-
-.eyebrow{
-  color:#d7e3cc;
-  font-size:12px;
-  letter-spacing:2px;
-}
-
-.hero h2{
-  font-family:"Noto Serif Telugu",serif;
-  font-size:clamp(45px,8vw,80px);
-  line-height:1.45;
-  margin:25px 0 20px;
-}
-
-.hero p{
-  font-family:"Noto Serif Telugu",serif;
-  font-size:20px;
-  line-height:2;
-}
-
-.actions{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-  margin-top:28px;
-}
-
-.btn{
-  border:0;
-  border-radius:30px;
-  padding:13px 21px;
-  background:var(--gold);
-  color:var(--green);
-  font-weight:bold;
-}
-
-.btn-outline{
-  background:transparent;
-  color:white;
-  border:1px solid white;
-}
-
-section{
-  padding:55px 0;
-}
-
-.section-label{
-  color:#7d907e;
-  font-size:12px;
-  letter-spacing:2px;
-}
-
-.section-title{
-  font-family:"Noto Serif Telugu",serif;
-  font-size:35px;
-  margin:8px 0;
-}
-
-.muted{
-  color:var(--muted);
-  line-height:2;
-}
-
-.upload-box,
-.message-box{
-  background:white;
-  border-radius:22px;
-  padding:25px;
-  margin:25px 0;
-  box-shadow:0 5px 25px rgba(25,55,35,.05);
-}
-
-.field{
-  margin:16px 0;
-}
-
-.field label{
-  display:block;
-  font-weight:bold;
-  margin-bottom:7px;
-}
-
-input,
-textarea{
-  width:100%;
-  border:1px solid #cbd9c5;
-  border-radius:12px;
-  padding:12px;
-  background:white;
-  color:var(--text);
-  outline:none;
-}
-
-input:focus,
-textarea:focus{
-  border-color:var(--green);
-}
-
-textarea{
-  min-height:100px;
-  resize:vertical;
-}
-
-.preview{
-  display:none;
-  width:100%;
-  max-width:420px;
-  max-height:400px;
-  object-fit:contain;
-  border-radius:15px;
-  margin:18px auto;
-  background:var(--soft);
-}
-
-.ratios{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-}
-
-.ratio{
-  border:1px solid #cbd9c5;
-  background:white;
-  border-radius:22px;
-  padding:8px 14px;
-}
-
-.ratio.active{
-  background:var(--green);
-  color:white;
-}
-
-.status{
-  margin-top:12px;
-  line-height:1.7;
-  overflow-wrap:anywhere;
-}
-
-.feed{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:20px;
-}
-
-.post{
-  background:white;
-  border-radius:20px;
-  padding:17px;
-  overflow:hidden;
-  box-shadow:0 4px 20px rgba(25,55,35,.04);
-}
-
-.post-name{
-  color:var(--green);
-  font-weight:bold;
-}
-
-.post-date{
-  color:#91a091;
-  font-size:12px;
-  margin-top:3px;
-}
-
-.post-image{
-  display:block;
-  width:100%;
-  max-height:520px;
-  object-fit:cover;
-  border-radius:14px;
-  margin:12px 0;
-}
-
-.post-description{
-  line-height:1.9;
-  overflow-wrap:anywhere;
-}
-
-.post-tools{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-top:15px;
-}
-
-.small-btn{
-  border:1px solid var(--line);
-  border-radius:20px;
-  padding:8px 12px;
-  background:#f8faf6;
-  color:var(--green);
-}
-
-.comment-area{
-  display:none;
-  margin-top:15px;
-  padding-top:15px;
-  border-top:1px solid var(--line);
-}
-
-.comment-area.open{
-  display:block;
-}
-
-.comment{
-  padding:10px 0;
-  border-bottom:1px solid #edf0eb;
-  line-height:1.8;
-  overflow-wrap:anywhere;
-}
-
-.comment strong{
-  color:var(--green);
-}
-
-.empty{
-  color:var(--muted);
-  padding:20px 0;
-}
-
-.about-card{
-  background:white;
-  border-radius:25px;
-  padding:35px 25px;
-  text-align:center;
-}
-
-.about-card h2{
-  font-family:"Noto Serif Telugu",serif;
-  font-size:32px;
-  line-height:1.8;
-}
-
-.about-card p{
-  color:var(--muted);
-  line-height:2;
-  font-size:16px;
-}
-
-.about-footer{
-  color:var(--green)!important;
-  font-weight:bold;
-}
-
-.bottom-nav{
-  position:fixed;
-  z-index:30;
-  left:0;
-  right:0;
-  bottom:0;
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  background:white;
-  border-top:1px solid var(--line);
-  padding:7px 3px calc(7px + env(safe-area-inset-bottom));
-}
-
-.nav-item{
-  border:0;
-  background:transparent;
-  color:#68736c;
-  font-size:11px;
-  padding:4px 0;
-}
-
-.nav-item span{
-  display:block;
-  font-size:24px;
-  margin-bottom:3px;
-}
-
-.nav-item.active{
-  color:var(--green);
-  font-weight:bold;
-}
-
-@media(max-width:700px){
-  .container{
-    padding:0 20px;
-  }
-
-  .feed{
-    grid-template-columns:1fr;
-  }
-
-  .hero{
-    min-height:650px;
-  }
-
-  .hero h2{
-    font-size:50px;
-  }
-
-  .hero p{
-    font-size:18px;
-  }
-
-  .brand h1{
-    font-size:24px;
-  }
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gurijepalli Village</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --secondary: #0f172a;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --danger: #dc2626;
+      --success: #16a34a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding-bottom: 80px;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+    }
+
+    .app-header {
+      background: linear-gradient(135deg, #1d4ed8, #2563eb, #38bdf8);
+      color: white;
+      padding: 24px 18px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      box-shadow: 0 4px 15px rgba(15, 23, 42, 0.15);
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .brand h1 {
+      font-size: 25px;
+      margin-bottom: 5px;
+    }
+
+    .brand p {
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    .menu-btn {
+      background: rgba(255,255,255,0.2);
+      color: white;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      font-size: 22px;
+    }
+
+    .menu-panel {
+      display: none;
+      max-width: 1100px;
+      margin: 12px auto 0;
+      background: white;
+      border-radius: 14px;
+      padding: 10px;
+      box-shadow: 0 8px 25px rgba(15,23,42,0.18);
+    }
+
+    .menu-panel.open {
+      display: block;
+    }
+
+    .menu-panel button {
+      width: 100%;
+      text-align: left;
+      background: white;
+      padding: 13px;
+      border-radius: 10px;
+      color: var(--text);
+    }
+
+    .menu-panel button:hover {
+      background: #eff6ff;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px 15px;
+    }
+
+    .page {
+      display: none;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #dbeafe, #e0f2fe);
+      border-radius: 24px;
+      padding: 35px 25px;
+      margin-bottom: 20px;
+    }
+
+    .hero h2 {
+      font-size: 32px;
+      margin-bottom: 10px;
+      color: #1e3a8a;
+    }
+
+    .hero p {
+      color: #334155;
+      line-height: 1.6;
+    }
+
+    .section-title {
+      font-size: 23px;
+      margin: 25px 0 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 5px 18px rgba(15,23,42,0.05);
+    }
+
+    .card h3 {
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+
+    .post-card {
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .post-card img {
+      display: block;
+      width: 100%;
+      max-height: 360px;
+      object-fit: cover;
+      background: #e2e8f0;
+    }
+
+    .post-content {
+      padding: 17px;
+    }
+
+    .post-content h3 {
+      margin-bottom: 8px;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .btn {
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .btn-danger {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .btn-success {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .form-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 7px;
+      font-size: 14px;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 12px;
+      outline: none;
+      background: white;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 35px 15px;
+      color: var(--muted);
+      background: white;
+      border: 1px dashed #cbd5e1;
+      border-radius: 16px;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 25px;
+      color: var(--muted);
+    }
+
+    .notice {
+      display: none;
+      padding: 13px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+
+    .notice.show {
+      display: block;
+    }
+
+    .notice.success {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .notice.error {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .comment-box {
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid var(--border);
+    }
+
+    .comment-item {
+      background: #f8fafc;
+      border-radius: 10px;
+      padding: 10px;
+      margin-top: 8px;
+      font-size: 13px;
+    }
+
+    .comment-item strong {
+      color: #1d4ed8;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 30;
+      background: white;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: center;
+      box-shadow: 0 -5px 20px rgba(15,23,42,0.08);
+    }
+
+    .bottom-nav-inner {
+      width: 100%;
+      max-width: 700px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    .nav-item {
+      background: white;
+      color: #64748b;
+      padding: 10px 3px;
+      font-size: 11px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav-item span {
+      font-size: 21px;
+    }
+
+    .nav-item.active {
+      color: var(--primary);
+      background: #eff6ff;
+      font-weight: bold;
+    }
+
+    .search-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .search-row input {
+      flex: 1;
+    }
+
+    .preview {
+      width: 100%;
+      max-height: 260px;
+      object-fit: contain;
+      border-radius: 12px;
+      margin-top: 10px;
+      display: none;
+      background: #f1f5f9;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 30px;
+      padding: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .hero h2 {
+        font-size: 26px;
+      }
+
+      .hero {
+        padding: 25px 18px;
+      }
+
+      .header-inner {
+        align-items: flex-start;
+      }
+
+      .brand h1 {
+        font-size: 21px;
+      }
+    }
+  </style>
 </head>
 
 <body>
-
-<header class="topbar">
-  <div class="container topbar-inner">
-    <div class="brand">
-      <div class="location-logo">📍</div>
-      <div>
-        <h1 class="telugu">గురిజేపల్లి</h1>
-        <p class="telugu">మన ఊరు • మన మాట</p>
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand">
+        <h1>Gurijepalli Village</h1>
+        <p>మన ఊరు • మన గర్వం</p>
       </div>
+
+      <button class="menu-btn" id="menuBtn">☰</button>
     </div>
 
-    <button id="menuButton" class="menu-button" aria-label="Menu">☰</button>
-  </div>
+    <div class="menu-panel" id="menuPanel">
+      <button data-page="home">🏠 Home</button>
+      <button data-page="photos">📸 Village Photos</button>
+      <button data-page="messages">💬 Messages</button>
+      <button data-page="search">🔎 Search</button>
+      <button data-page="about">ℹ️ About Village</button>
+    </div>
+  </header>
 
-  <div id="menuPanel" class="menu-panel">
-    <button data-page="home">⌂ Home</button>
-    <button data-page="photos">▧ Photos</button>
-    <button data-page="messages">☷ Messages</button>
-    <button data-page="search">⌕ Search</button>
-    <button data-page="about">ⓘ About</button>
-  </div>
-</header>
+  <main>
+    <div id="notice" class="notice"></div>
 
-<main>
-
-<section id="home" class="page active">
-  <div class="hero">
-    <div class="container">
-      <div class="hero-content">
-        <div class="eyebrow">A DIGITAL HOME FOR OUR VILLAGE STORIES</div>
-
-        <h2>మన ఊరు,<br>మన గర్వం.</h2>
-
+    <section id="home" class="page active">
+      <div class="hero">
+        <h2>Welcome to Gurijepalli</h2>
         <p>
-          మన గ్రామ జ్ఞాపకాలు, ఫోటోలు, అభిప్రాయాలు
-          అందరితో పంచుకునే మన చిన్న digital space.
+          This is the digital home of Gurijepalli village.
+          Share village memories, photos, messages and important updates
+          with our village people.
         </p>
 
         <div class="actions">
-          <button class="btn" data-page="photos">ఫోటోలు చూడండి ↓</button>
-          <button class="btn btn-outline" data-page="messages">అభిప్రాయం రాయండి</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="photos" class="page">
-  <div class="container">
-    <div class="section-label">VILLAGE PHOTOS</div>
-    <h2 class="section-title telugu">మన గ్రామ ఫోటోలు</h2>
-    <p class="muted">మన ఊరి అందాలను అందరితో పంచుకోండి.</p>
-
-    <div class="upload-box">
-      <h3 class="telugu">ఫోటో అప్‌లోడ్ చేయండి</h3>
-
-      <div class="field">
-        <label for="photoName">మీ పేరు</label>
-        <input id="photoName" placeholder="మీ పేరు రాయండి">
-      </div>
-
-      <div class="field">
-        <label for="photoInput">ఫోటో</label>
-        <input id="photoInput" type="file" accept="image/*">
-      </div>
-
-      <div class="field">
-        <label>Photo ratio</label>
-        <div class="ratios">
-          <button type="button" class="ratio active" data-ratio="1 / 1">1:1</button>
-          <button type="button" class="ratio" data-ratio="4 / 5">4:5</button>
-          <button type="button" class="ratio" data-ratio="16 / 9">16:9</button>
-          <button type="button" class="ratio" data-ratio="9 / 16">9:16</button>
+          <button class="btn btn-primary" data-page="photos">View Photos</button>
+          <button class="btn btn-secondary" data-page="messages">Send Message</button>
         </div>
       </div>
 
-      <img id="preview" class="preview" alt="Selected photo preview">
+      <h2 class="section-title">Village Highlights</h2>
 
-      <div class="field">
-        <label for="photoDescription">ఫోటో గురించి</label>
-        <textarea id="photoDescription" placeholder="ఈ ఫోటో గురించి రాయండి..."></textarea>
+      <div class="grid">
+        <div class="card">
+          <h3>🌾 Our Village</h3>
+          <p>Gurijepalli is our beautiful village filled with memories, culture and friendly people.</p>
+        </div>
+
+        <div class="card">
+          <h3>🤝 Our People</h3>
+          <p>Our village website helps people stay connected and share useful information.</p>
+        </div>
+
+        <div class="card">
+          <h3>📸 Our Memories</h3>
+          <p>Upload village photos and preserve special moments digitally.</p>
+        </div>
       </div>
 
-      <button id="publishPhoto" class="btn">Publish Photo</button>
-      <div id="photoStatus" class="status"></div>
-    </div>
+      <h2 class="section-title">Latest Village Posts</h2>
+      <div id="homePosts" class="grid">
+        <div class="loading">Loading posts...</div>
+      </div>
+    </section>
 
-    <div id="photoFeed" class="feed">
-      <p class="empty">Photos loading...</p>
-    </div>
-  </div>
-</section>
+    <section id="photos" class="page">
+      <h2 class="section-title">Village Photos</h2>
 
-<section id="messages" class="page">
-  <div class="container">
-    <div class="section-label">VILLAGE VOICES</div>
-    <h2 class="section-title telugu">మన ఊరి మాటలు</h2>
-    <p class="muted">మీ అభిప్రాయాన్ని మీ పేరుతో పంచుకోండి.</p>
+      <div class="form-card">
+        <h3>Upload a Village Photo</h3>
+        <p style="color:#64748b; margin:8px 0 16px;">
+          Upload a photo with a title and description.
+        </p>
 
-    <div class="message-box">
-      <div class="field">
-        <label for="messageName">మీ పేరు</label>
-        <input id="messageName" placeholder="మీ పేరు రాయండి">
+        <form id="uploadForm">
+          <div class="form-group">
+            <label for="photoName">Photo Title</label>
+            <input id="photoName" required placeholder="Enter photo title" />
+          </div>
+
+          <div class="form-group">
+            <label for="photoDescription">Description</label>
+            <textarea id="photoDescription" placeholder="Write something about this photo"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="photoFile">Choose Photo</label>
+            <input id="photoFile" type="file" accept="image/*" required />
+            <img id="previewImage" class="preview" alt="Selected photo preview" />
+          </div>
+
+          <button class="btn btn-primary" type="submit">Upload Photo</button>
+        </form>
       </div>
 
-      <div class="field">
-        <label for="messageText">మీ మెసేజ్</label>
-        <textarea id="messageText" placeholder="మీ అభిప్రాయం రాయండి..."></textarea>
+      <div id="photoList" class="grid">
+        <div class="loading">Loading photos...</div>
+      </div>
+    </section>
+
+    <section id="messages" class="page">
+      <h2 class="section-title">Village Messages</h2>
+
+      <div class="form-card">
+        <h3>Send a Message</h3>
+
+        <form id="messageForm">
+          <div class="form-group">
+            <label for="messageName">Your Name</label>
+            <input id="messageName" required placeholder="Enter your name" />
+          </div>
+
+          <div class="form-group">
+            <label for="messageText">Message</label>
+            <textarea id="messageText" required placeholder="Write your message"></textarea>
+          </div>
+
+          <button class="btn btn-primary" type="submit">Send Message</button>
+        </form>
       </div>
 
-      <button id="sendMessage" class="btn">Send Message</button>
-      <div id="messageStatus" class="status"></div>
+      <div id="messageList" class="grid">
+        <div class="loading">Loading messages...</div>
+      </div>
+    </section>
+
+    <section id="search" class="page">
+      <h2 class="section-title">Search Village Content</h2>
+
+      <div class="search-row">
+        <input id="searchInput" placeholder="Search posts or messages..." />
+        <button id="searchBtn" class="btn btn-primary">Search</button>
+      </div>
+
+      <div id="searchResults"></div>
+    </section>
+
+    <section id="about" class="page">
+      <h2 class="section-title">About Gurijepalli</h2>
+
+      <div class="card">
+        <h3>About Our Village</h3>
+        <p>
+          Gurijepalli is our native place and our emotional home.
+          This website is created to connect village people,
+          preserve memories and share village-related information.
+        </p>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <h3>Website Features</h3>
+        <p>
+          • Village photo uploads
+          • Village messages
+          • Likes and comments
+          • Search option
+          • Digital village memories
+        </p>
+      </div>
+    </section>
+
+    <div class="footer">
+      Made with ❤️ for Gurijepalli Village
+      <br />
+      #MANUROY
     </div>
+  </main>
 
-    <div id="messageFeed" class="feed">
-      <p class="empty">Messages loading...</p>
+  <nav class="bottom-nav">
+    <div class="bottom-nav-inner">
+      <button class="nav-item active" data-page="home">
+        <span>🏠</span>
+        Home
+      </button>
+
+      <button class="nav-item" data-page="photos">
+        <span>📸</span>
+        Photos
+      </button>
+
+      <button class="nav-item" data-page="messages">
+        <span>💬</span>
+        Messages
+      </button>
+
+      <button class="nav-item" data-page="search">
+        <span>🔎</span>
+        Search
+      </button>
+
+      <button class="nav-item" data-page="about">
+        <span>ℹ️</span>
+        About
+      </button>
     </div>
-  </div>
-</section>
+  </nav>
 
-<section id="search" class="page">
-  <div class="container">
-    <div class="section-label">SEARCH</div>
-    <h2 class="section-title telugu">వెతకండి</h2>
+  <script>
+    const SUPABASE_URL = "https://wxspgshtgcgkjctlckxy.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_KjU87yCYbuzdiV3_pi6uiQ_6H35oOvj";
+    const STORAGE_BUCKET = "photos";
 
-    <input id="searchInput" placeholder="ఫోటోలు లేదా మెసేజ్‌లను వెతకండి...">
+    const supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
 
-    <div id="searchFeed" class="feed" style="margin-top:25px"></div>
-  </div>
-</section>
+    let allPosts = [];
+    let allMessages = [];
 
-<section id="about" class="page">
-  <div class="container">
-    <div class="about-card">
-      <div class="section-label">ABOUT OUR VILLAGE</div>
+    const $ = (id) => document.getElementById(id);
 
-      <h2>
-        మన ఊరి కథలు.<br>
-        మన వాళ్ల మాటలు.<br>
-        మన జ్ఞాపకాల చోటు.
-      </h2>
+    function showNotice(message, type = "success") {
+      const notice = $("notice");
+      notice.textContent = message;
+      notice.className = "notice show " + type;
 
-      <p>
-        గురిజేపల్లి గ్రామంలోని ఫోటోలు, జ్ఞాపకాలు,
-        అభిప్రాయాలు ఒకే digital spaceలో కలిపే
-        మన చిన్న ప్రయత్నమే ఇది.
-      </p>
-
-      <p>
-        మన ఊరి ప్రత్యేకతను, మనుషుల అనుబంధాలను,
-        ప్రతి చిన్న ముచ్చటను అందరితో పంచుకోవడానికి
-        ఈ platform రూపొందించబడింది.
-      </p>
-
-      <p class="about-footer">
-        Created from our village.<br>
-        Built for our people.<br>
-        Powered by MANUROY. ❤️
-      </p>
-    </div>
-  </div>
-</section>
-
-</main>
-
-<nav class="bottom-nav">
-  <button class="nav-item active" data-page="home">
-    <span>⌂</span>Home
-  </button>
-
-  <button class="nav-item" data-page="photos">
-    <span>▧</span>Photos
-  </button>
-
-  <button class="nav-item" data-page="messages">
-    <span>☷</span>Messages
-  </button>
-
-  <button class="nav-item" data-page="search">
-    <span>⌕</span>Search
-  </button>
-
-  <button class="nav-item" data-page="about">
-    <span>ⓘ</span>About
-  </button>
-</nav>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-const SUPABASE_URL = "https://wxspgshtgcgkjctlckxy.supabase.co";
-const SUPABASE_KEY = "sb_publishable_KjU87yCYbuzdiV3_pi6uiQ_6H35oOvj";
-
-const db = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
-
-const $ = id => document.getElementById(id);
-
-let selectedFile = null;
-let selectedRatio = "1 / 1";
-let allPosts = [];
-let allMessages = [];
-
-function escapeHtml(value){
-  return String(value ?? "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-}
-
-function dateText(value){
-  if(!value) return "ఇటీవల";
-
-  return new Date(value).toLocaleDateString("te-IN",{
-    year:"numeric",
-    month:"short",
-    day:"numeric"
-  });
-}
-
-function status(id,text,error=false){
-  $(id).textContent = text;
-  $(id).style.color = error ? "#b33a3a" : "#214d32";
-}
-
-function openPage(page){
-  document.querySelectorAll(".page").forEach(section=>{
-    section.classList.toggle("active",section.id === page);
-  });
-
-  document.querySelectorAll(".nav-item").forEach(button=>{
-    button.classList.toggle("active",button.dataset.page === page);
-  });
-
-  $("menuPanel").classList.remove("open");
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
-  if(page === "photos") loadPhotos();
-  if(page === "messages") loadMessages();
-  if(page === "search") renderSearch($("searchInput").value);
-}
-
-document.querySelectorAll("[data-page]").forEach(button=>{
-  button.addEventListener("click",()=>{
-    openPage(button.dataset.page);
-  });
-});
-
-$("menuButton").addEventListener("click",()=>{
-  $("menuPanel").classList.toggle("open");
-});
-
-document.querySelectorAll(".ratio").forEach(button=>{
-  button.addEventListener("click",()=>{
-    document.querySelectorAll(".ratio").forEach(item=>{
-      item.classList.remove("active");
-    });
-
-    button.classList.add("active");
-    selectedRatio = button.dataset.ratio;
-
-    if(selectedFile){
-      $("preview").style.aspectRatio = selectedRatio;
+      setTimeout(() => {
+        notice.className = "notice";
+      }, 4000);
     }
-  });
-});
 
-$("photoInput").addEventListener("change",event=>{
-  selectedFile = event.target.files[0] || null;
+    function escapeHTML(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
 
-  if(!selectedFile){
-    $("preview").style.display = "none";
-    return;
-  }
+    function formatDate(value) {
+      if (!value) return "";
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return "";
+      return date.toLocaleString("en-IN");
+    }
 
-  if(!selectedFile.type.startsWith("image/")){
-    status("photoStatus","Image file మాత్రమే ఎంచుకోండి.",true);
-    selectedFile = null;
-    event.target.value = "";
-    return;
-  }
-
-  if(selectedFile.size > 8 * 1024 * 1024){
-    status("photoStatus","Photo size 8MB కంటే తక్కువగా ఉండాలి.",true);
-    selectedFile = null;
-    event.target.value = "";
-    return;
-  }
-
-  const reader = new FileReader();
-
-  reader.onload = ()=>{
-    $("preview").src = reader.result;
-    $("preview").style.aspectRatio = selectedRatio;
-    $("preview").style.display = "block";
-  };
-
-  reader.readAsDataURL(selectedFile);
-});
-
-$("publishPhoto").addEventListener("click",async()=>{
-  const name = $("photoName").value.trim();
-  const description = $("photoDescription").value.trim();
-  const button = $("publishPhoto");
-
-  if(!name || !selectedFile || !description){
-    status("photoStatus","పేరు, ఫోటో, description అన్నీ ఇవ్వండి.",true);
-    return;
-  }
-
-  button.disabled = true;
-  status("photoStatus","Photo uploading...");
-
-  try{
-    const fileName =
-      Date.now() + "-" +
-      Math.random().toString(36).slice(2) +
-      "-" +
-      selectedFile.name.replace(/[^a-zA-Z0-9.-]/g,"-");
-
-    const upload = await db.storage
-      .from("photos")
-      .upload(fileName,selectedFile,{
-        cacheControl:"3600",
-        upsert:false,
-        contentType:selectedFile.type
+    function openPage(pageName) {
+      document.querySelectorAll(".page").forEach((page) => {
+        page.classList.remove("active");
       });
 
-    if(upload.error) throw upload.error;
+      const target = $(pageName);
 
-    const publicUrl = db.storage
-      .from("photos")
-      .getPublicUrl(fileName).data.publicUrl;
+      if (target) {
+        target.classList.add("active");
+      }
 
-    const insert = await db
-      .from("posts")
-      .insert({
-        name:name,
-        image_url:publicUrl,
-        description:description
+      document.querySelectorAll("[data-page]").forEach((button) => {
+        button.classList.toggle(
+          "active",
+          button.dataset.page === pageName &&
+          button.classList.contains("nav-item")
+        );
       });
 
-    if(insert.error) throw insert.error;
+      $("menuPanel").classList.remove("open");
+      window.scrollTo({ top: 0, behavior: "smooth" });
 
-    status("photoStatus","Photo successfully published!");
-
-    $("photoName").value = "";
-    $("photoDescription").value = "";
-    $("photoInput").value = "";
-    $("preview").style.display = "none";
-    selectedFile = null;
-
-    await loadPhotos();
-
-  }catch(error){
-    console.error(error);
-    status("photoStatus","Upload failed: " + error.message,true);
-  }finally{
-    button.disabled = false;
-  }
-});
-
-async function loadPhotos(){
-  $("photoFeed").innerHTML = `<p class="empty">Photos loading...</p>`;
-
-  const result = await db
-    .from("posts")
-    .select("*")
-    .order("created_at",{ascending:false});
-
-  if(result.error){
-    console.error(result.error);
-    $("photoFeed").innerHTML =
-      `<p class="empty">Photos load కాలేదు. Supabase table/policy check చేయండి.</p>`;
-    return;
-  }
-
-  allPosts = result.data || [];
-
-  if(!allPosts.length){
-    $("photoFeed").innerHTML =
-      `<p class="empty">ఇంకా photos లేవు.</p>`;
-    renderSearch($("searchInput").value);
-    return;
-  }
-
-  $("photoFeed").innerHTML = allPosts.map(postCard).join("");
-  attachPostEvents();
-  renderSearch($("searchInput").value);
-}
-
-function postCard(post){
-  return `
-    <article class="post" data-post-id="${post.id}">
-      <div class="post-name">${escapeHtml(post.name)}</div>
-      <div class="post-date">${dateText(post.created_at)}</div>
-
-      <img
-        class="post-image"
-        src="${escapeHtml(post.image_url)}"
-        alt="Village photo"
-        loading="lazy"
-      >
-
-      <div class="post-description">
-        ${escapeHtml(post.description)}
-      </div>
-
-      <div class="post-tools">
-        <button class="small-btn like-btn">♡ Like <span class="like-count">0</span></button>
-        <button class="small-btn comment-btn">Comments</button>
-        <button class="small-btn report-btn">Report</button>
-      </div>
-
-      <div class="comment-area">
-        <input class="comment-name" placeholder="మీ పేరు">
-
-        <textarea class="comment-text" placeholder="Comment రాయండి..."></textarea>
-
-        <button class="btn add-comment">Send</button>
-
-        <div class="comments-list"></div>
-      </div>
-    </article>
-  `;
-}
-
-async function attachPostEvents(){
-  document.querySelectorAll(".post").forEach(async card=>{
-    const id = Number(card.dataset.postId);
-    const count = await getLikeCount(id);
-
-    if(card.querySelector(".like-count")){
-      card.querySelector(".like-count").textContent = count;
+      if (pageName === "photos") loadPhotos();
+      if (pageName === "messages") loadMessages();
+      if (pageName === "home") loadHomePosts();
     }
-  });
 
-  document.querySelectorAll(".like-btn").forEach(button=>{
-    button.addEventListener("click",async()=>{
-      const card = button.closest(".post");
-      const postId = Number(card.dataset.postId);
-      const name = prompt("మీ పేరు రాయండి:");
-
-      if(!name || !name.trim()) return;
-
-      const result = await db
-        .from("reactions")
-        .insert({
-          post_id:postId,
-          user_name:name.trim(),
-          reaction:"like"
-        });
-
-      if(result.error){
-        console.error(result.error);
-        alert("Like submit కాలేదు.");
-        return;
-      }
-
-      const count = await getLikeCount(postId);
-      card.querySelector(".like-count").textContent = count;
-      button.innerHTML = `♥ Like <span class="like-count">${count}</span>`;
+    document.querySelectorAll("[data-page]").forEach((button) => {
+      button.addEventListener("click", () => {
+        openPage(button.dataset.page);
+      });
     });
-  });
 
-  document.querySelectorAll(".comment-btn").forEach(button=>{
-    button.addEventListener("click",async()=>{
-      const card = button.closest(".post");
-      const area = card.querySelector(".comment-area");
-
-      area.classList.toggle("open");
-
-      if(area.classList.contains("open")){
-        await loadComments(card);
-      }
+    $("menuBtn").addEventListener("click", () => {
+      $("menuPanel").classList.toggle("open");
     });
-  });
 
-  document.querySelectorAll(".add-comment").forEach(button=>{
-    button.addEventListener("click",async()=>{
-      const card = button.closest(".post");
-      const postId = Number(card.dataset.postId);
-      const name = card.querySelector(".comment-name").value.trim();
-      const comment = card.querySelector(".comment-text").value.trim();
+    $("photoFile").addEventListener("change", () => {
+      const file = $("photoFile").files[0];
+      const preview = $("previewImage");
 
-      if(!name || !comment){
-        alert("Name and comment రెండూ రాయండి.");
+      if (!file) {
+        preview.style.display = "none";
+        preview.src = "";
         return;
       }
 
-      const result = await db
-        .from("comments")
-        .insert({
-          post_id:postId,
-          name:name,
-          comment:comment
+      preview.src = URL.createObjectURL(file);
+      preview.style.display = "block";
+    });
+
+    async function loadHomePosts() {
+      const container = $("homePosts");
+      container.innerHTML = '<div class="loading">Loading posts...</div>';
+
+      const { data, error } = await supabaseClient
+        .from("posts")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(6);
+
+      if (error) {
+        container.innerHTML = '<div class="empty">Posts could not be loaded.</div>';
+        return;
+      }
+
+      allPosts = data || [];
+      renderPosts(container, allPosts);
+    }
+
+    async function loadPhotos() {
+      const container = $("photoList");
+      container.innerHTML = '<div class="loading">Loading photos...</div>';
+
+      const { data, error } = await supabaseClient
+        .from("posts")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        container.innerHTML = '<div class="empty">Photos could not be loaded.</div>';
+        return;
+      }
+
+      allPosts = data || [];
+      renderPosts(container, allPosts);
+    }
+
+    function renderPosts(container, posts) {
+      if (!posts.length) {
+        container.innerHTML = '<div class="empty">No photos or posts available yet.</div>';
+        return;
+      }
+
+      container.innerHTML = posts.map((post) => {
+        const imageURL = post.image_url || post.image || "";
+
+        return `
+          <article class="card post-card">
+            ${
+              imageURL
+                ? `<img src="${escapeHTML(imageURL)}" alt="${escapeHTML(post.name || "Village photo")}" />`
+                : ""
+            }
+
+            <div class="post-content">
+              <h3>${escapeHTML(post.name || "Village Post")}</h3>
+              <p>${escapeHTML(post.description || "")}</p>
+
+              <div class="meta">
+                ${formatDate(post.created_at)}
+              </div>
+
+              <div class="actions">
+                <button class="btn btn-success like-btn" data-id="${escapeHTML(post.id)}">
+                  ❤️ Like
+                </button>
+
+                <button class="btn btn-secondary comment-btn" data-id="${escapeHTML(post.id)}">
+                  💬 Comment
+                </button>
+
+                <button class="btn btn-danger report-btn" data-id="${escapeHTML(post.id)}">
+                  🚩 Report
+                </button>
+              </div>
+
+              <div class="comment-box" id="comments-${escapeHTML(post.id)}"></div>
+            </div>
+          </article>
+        `;
+      });
+
+      attachPostEvents();
+    }
+
+    function attachPostEvents() {
+      document.querySelectorAll(".like-btn").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const name = prompt("Enter your name:");
+
+          if (!name) return;
+
+          const postId = button.dataset.id;
+
+          let result = await supabaseClient
+            .from("reactions")
+            .insert({
+              post_id: postId,
+              user_name: name,
+              reaction: "like"
+            });
+
+          if (result.error) {
+            result = await supabaseClient
+              .from("reactions")
+              .insert({
+                post_id: postId,
+                name: name,
+                reaction: "like"
+              });
+          }
+
+          if (result.error) {
+            showNotice(result.error.message, "error");
+          } else {
+            showNotice("Like added successfully.");
+          }
         });
+      });
 
-      if(result.error){
-        console.error(result.error);
-        alert("Comment submit కాలేదు.");
-        return;
-      }
+      document.querySelectorAll(".comment-btn").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const postId = button.dataset.id;
+          const name = prompt("Enter your name:");
 
-      ca
+          if (!name) return;
+
+          const comment = prompt("Enter your comment:");
+
+          if (!comment) return;
+
+          let result = await supabaseClient
+            .from("comments")
+            .insert({
+              post_id: postId,
+              name: name,
+              comment: comment
+            });
+
+          if (result.error) {
+            result = await supabaseClient
+              .from("photo_comments")
+              .insert({
+                post_id: postId,
+                name: name,
+                comment: comment
+              });
+          }
+
+          if (result.er
