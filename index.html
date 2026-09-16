@@ -1,2 +1,323 @@
+
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>గురిజేపల్లి గ్రామం</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Telugu:wght@400;600;700&family=Noto+Sans+Telugu:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green: #244b32;
+      --light: #eaf1e5;
+      --cream: #faf9f3;
+      --text: #243126;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--text);
+      font-family: 'Noto Sans Telugu', sans-serif;
+    }
+    .telugu {
+      font-family: 'Noto Serif Telugu', serif;
+    }
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 0 22px;
+    }
+    header {
+      background: var(--green);
+      color: white;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      gap: 12px;
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 13px;
+      margin-left: 15px;
+    }
+    .hero {
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      color: white;
+      background:
+        linear-gradient(90deg, rgba(18,53,31,.86), rgba(18,53,31,.2)),
+        url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1800&q=85')
+        center/cover;
+    }
+    .hero-content { padding: 65px 0; max-width: 650px; }
+    h1 {
+      font-size: clamp(38px, 7vw, 72px);
+      line-height: 1.4;
+      margin: 10px 0;
+    }
+    h2 { font-size: 32px; margin: 10px 0; }
+    p { line-height: 1.9; }
+    .hero p { font-size: 17px; }
+    .btn {
+      display: inline-block;
+      border: 0;
+      border-radius: 30px;
+      padding: 12px 20px;
+      text-decoration: none;
+      background: #e5c078;
+      color: #203c28;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 10px 8px 0 0;
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid white;
+      color: white;
+    }
+    section { padding: 65px 0; }
+    .label {
+      color: #71866c;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .muted { color: #657267; }
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .about img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 15px;
+    }
+    .community { background: var(--light); }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 25px 0;
+    }
+    .tab {
+      border: 1px solid #cbd9c5;
+      background: white;
+      color: var(--green);
+      padding: 9px 16px;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+    .tab.active { background: var(--green); color: white; }
+    .feed {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .post {
+      background: white;
+      border-radius: 15px;
+      padding: 18px;
+      box-shadow: 0 3px 15px rgba(30,60,35,.05);
+    }
+    .post img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      border-radius: 10px;
+      margin: 12px 0;
+    }
+    .post h3 { font-size: 21px; margin: 10px 0; }
+    .tag {
+      color: #42654a;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .post small { color: #829080; }
+    .location {
+      background: var(--green);
+      color: white;
+      border-radius: 15px;
+      padding: 35px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    footer {
+      text-align: center;
+      padding: 25px;
+      background: #193825;
+      color: #d7e1d5;
+      font-size: 13px;
+    }
+    @media (max-width: 700px) {
+      .about, .feed { grid-template-columns: 1fr; }
+      nav { align-items: flex-start; }
+      nav a { margin-left: 7px; font-size: 11px; }
+      .hero { min-height: 470px; }
+      .location { display: block; }
+      h2 { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo telugu">గురిజేపల్లి</div>
+        <div>
+          <a href="#about">మా ఊరు</a>
+          <a href="#community">వార్తలు</a>
+          <a href="#location">స్థానం</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <div class="label" style="color:#d5e1c9;">Welcome to our village</div>
+          <h1 class="telugu">మన ఊరు,<br>మన గర్వం.</h1>
+          <p>పచ్చని పొలాలు, చెట్ల నీడలు, మనసైన మనుషులు. ఇదే మా గురిజేపల్లి గ్రామం.</p>
+          <a class="btn" href="#community">గ్రామ విశేషాలు ↓</a>
+          <a class="btn btn-outline" href="https://maps.app.goo.gl/zqwS8iWCt6gz8BNv9" target="_blank" rel="noopener">📍 మ్యాప్ చూడండి</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container about">
+        <div>
+          <div class="label">Our village</div>
+          <h2 class="telugu">మట్టి వాసనలో<br>మా జ్ఞాపకాలు</h2>
+          <p class="muted">గురిజేపల్లి గ్రామానికి స్వాగతం. మన గ్రామంలోని పచ్చని పొలాలు, చెట్లు, సంప్రదాయాలు, ప్రజల జీవన విధానం గురించి ఈ వెబ్‌సైట్‌లో తెలుసుకోండి.</p>
+          <p class="muted">గ్రామ చరిత్ర, ముఖ్యమైన ప్రదేశాలు, పండుగలు మరియు స్థానిక విశేషాలను ఇక్కడ జోడించవచ్చు.</p>
+        </div>
+        <img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=900&q=85" alt="Village greenery">
+      </div>
+    </section>
+
+    <section class="community" id="community">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="label">Village community</div>
+            <h2 class="telugu">గ్రామ విశేషాలు</h2>
+            <p class="muted">మన గ్రామ వార్తలు, ఫోటోలు మరియు ముఖ్యమైన సమాచారం.</p>
+          </div>
+        </div>
+
+        <div class="tabs">
+          <button class="tab active" data-filter="all">అన్నీ</button>
+          <button class="tab" data-filter="news">వార్తలు</button>
+          <button class="tab" data-filter="photos">ఫోటోలు</button>
+          <button class="tab" data-filter="notice">ప్రకటనలు</button>
+        </div>
+
+        <div class="feed" id="feed"></div>
+      </div>
+    </section>
+
+    <section id="location">
+      <div class="container">
+        <div class="location">
+          <div>
+            <div class="label" style="color:#b9d0b4;">Find our village</div>
+            <h2 class="telugu">గురిజేపల్లి ఎక్కడ ఉంది?</h2>
+            <p>మా గ్రామాన్ని Google Mapsలో చూడండి.</p>
+          </div>
+          <a class="btn" href="https://maps.app.goo.gl/zqwS8iWCt6gz8BNv9" target="_blank" rel="noopener">Google Maps ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 గురిజేపల్లి గ్రామం • Made with love for our village
+  </footer>
+
+  <script>
 const SUPABASE_URL = "https://wxspgshtgcgkjctlckxy.supabase.co";
-const SUPABASE_KEY = "sb_publishable_...";
+
+const SUPABASE_KEY =
+"sb_publishable_KjU87yCYbuzdiV3_pi6uiQ_6H35oOvj";
+
+const posts = [
+      {
+        type: 'news',
+        title: 'మన గ్రామంలో కొత్త రోజు',
+        message: 'గ్రామ విశేషాలు, పండుగలు, కార్యక్రమాలు మరియు తాజా సమాచారాన్ని ఇక్కడ పంచుకోవచ్చు.',
+        image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=900&q=85'
+      },
+      {
+        type: 'photos',
+        title: 'పచ్చని పొలాల అందాలు',
+        message: 'మన ఊరి ప్రకృతి అందాలను మీతో పంచుకుంటున్నాం.',
+        image: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=900&q=85'
+      },
+      {
+        type: 'notice',
+        title: 'గ్రామ సమాచారం',
+        message: 'గ్రామ కార్యక్రమాలు, సమావేశాలు మరియు ప్రజలకు ఉపయోగపడే ప్రకటనలను ఇక్కడ చూడవచ్చు.',
+        image: ''
+      }
+    ];
+
+    const labels = {news:'వార్తలు', photos:'ఫోటోలు', notice:'ప్రకటనలు'};
+    const feed = document.getElementById('feed');
+
+    function showPosts(filter) {
+      feed.innerHTML = '';
+      posts.filter(p => filter === 'all' || p.type === filter).forEach(p => {
+        const card = document.createElement('article');
+        card.className = 'post';
+        card.innerHTML = `
+          <div class="tag">${labels[p.type]}</div>
+          ${p.image ? `<img src="${p.image}" alt="${p.title}">` : ''}
+          <h3 class="telugu">${p.title}</h3>
+          <p class="muted">${p.message}</p>
+          <small>గ్రామ నిర్వాహకులు • నమూనా పోస్ట్</small>
+        `;
+        feed.appendChild(card);
+      });
+    }
+
+    document.querySelectorAll('.tab').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+        button.classList.add('active');
+        showPosts(button.dataset.filter);
+      });
+    });
+
+    showPosts('all');
+  </script>
+</body>
+</html>
+<space>
+  
