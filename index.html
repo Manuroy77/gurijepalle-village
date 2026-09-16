@@ -878,26 +878,24 @@
               reaction: "like"
             });
 
-          if (result.error) {
-            result = await supabaseClient
-              .from("reactions")
-              .insert({
-                post_id: postId,
-                name: name,
-                reaction: "like"
-              });
-          }
+              if (result.error) {
+          alert(result.error);
+          return;
+        }
 
-          if (result.error) {
-            showNotice(result.error.message, "error");
-          } else {
-            showNotice("Like added successfully.");
-          }
-        });
-      });
+        commentInput.value = "";
+        await loadPosts();
+      } catch (error) {
+        console.error("Comment error:", error);
+        alert("Comment failed. Please try again.");
+      }
+    });
+  });
+}
 
-      document.querySelectorAll(".comment-btn").forEach((button) => {
-        button.addEventListener("click", async () => {
-          const postId = button.dataset.id;
-
-          
+document.addEventListener("DOMContentLoaded", () => {
+  attachPostEvents();
+});
+</script>
+</body>
+</html>
