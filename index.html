@@ -878,24 +878,227 @@
               reaction: "like"
             });
 
-              if (result.error) {
-          alert(result.error);
+                        if (result.error) {
+            alert(result.error.message || "Like failed.");
+            return;
+          }
+
+          showNotice("Liked successfully!");
+        });
+      });
+
+      document.querySelectorAll(".comment-btn").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const name = prompt("Enter your name:");
+          if (!name) return;
+
+          const comment = prompt("Write your comment:");
+          if (!comment) return;
+
+          const postId = button.dataset.id;
+
+          const { error } = await supabaseClient
+            .from("comments")
+            .insert({
+              post_id: postId,
+              user_name: name,
+              comment: comment
+            });
+
+          if (error) {
+            alert(error.message || "Comment failed.");
+            return;
+          }
+
+          showNotice("Comment added successfully!");
+        });
+      });
+
+      document.querySelectorAll(".report-btn").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const reason = prompt("Enter report reason:");
+
+          if (!reason) return;
+
+          const postId = button.dataset.id;
+
+          const { error } = await supabaseClient
+            .from("reports")
+            .insert({
+              post_id: postId,
+              reason: reason
+            });
+
+          if (error) {
+            alert(error.message || "Report failed.");
+            return;
+          }
+
+          showNotice("Report submitted.");
+        });
+      });
+    }
+
+    $("uploadForm").addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const title = $("photoName").value.trim();
+      const description = $("photoDescription").value.trim();
+      const file = $("photoFile").files[0];
+
+      if (!file) {
+        showNotice("Please choose a photo.", "error");
+        return;
+      }
+
+      try {
+        const fileName =
+          Date.now() + "-" + file.name.replace(/\s+/g, "-");
+
+        const filePath = "uploads/" + fileName;
+
+        const { error: uploadError } = await supabaseClient.storage
+          .from(STORAGE_BUCKET)
+          .upload(filePath, file);
+
+        if (uploadError) {
+          showNotice(uploadError.message, "error");
           return;
         }
 
-        commentInput.value = "";
-        await loadPosts();
+        const { data: publicData } = supabaseClient.storage
+          .from(STORAGE_BUCKET)
+          .getPublicUrl(filePath);
+
+        const { error: insertError } = await supabaseClient
+          .from("posts")
+          .insert({
+            name: title,
+            description: description,
+            image_url: publicData.publicUrl
+          });
+
+        if (insertError) {
+          showNotice(insertError.message, "error");
+          return;
+        }
+
+        $("uploadForm").reset();
+        $("previewImage").style.display = "none";
+        $("previewImage").src = "";
+
+        showNotice("Photo uploaded successfully!");
+        await loadPhotos();
       } catch (error) {
-        console.error("Comment error:", error);
-        alert("Comment failed. Please try again.");
+        console.error(error);
+        showNotice("Upload failed.", "error");
       }
     });
-  });
-}
 
-document.addEventListener("DOMContentLoaded", () => {
-  attachPostEvents();
-});
-</script>
+    $("messageForm").addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const name = $("messageName").value.trim();
+      const message = $("messageText").value.trim();
+
+      const { error } = await supabaseClient
+        .from("messages")
+        .insert({
+          user_name: name,
+          message: message
+        });
+
+      if (error) {
+        showNotice(error.message, "error");
+        return;
+      }
+
+      $("messageForm").reset();
+      showNotice("Message sent successfully!");
+      await loadMessages();
+    });
+
+    async function loadMessages() {
+      const container = $("messageList");
+
+      container.innerHTML =
+        '<div class="loading">Loading messages...</div>';
+
+      const { data, error } = await supabaseClient
+        .from("messages")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        container.innerHTML =
+          '<div class="empty">Messages could not be loaded.</div>';
+        return;
+      }
+
+      allMessages = data || [];
+
+      if (!allMessages.length) {
+        container.innerHTML =
+          '<div class="empty">No messages yet.</div>';
+        return;
+      }
+
+      container.innerHTML = allMessages.map((message) => `
+        <div class="card">
+          <h3>${escapeHTML(message.user_name || "Anonymous")}</h3>
+          <p>${escapeHTML(message.message || "")}</p>
+          <div class="meta">${formatDate(message.created_at)}</div>
+        </div>
+      `).join("");
+    }
+
+    $("searchBtn").addEventListener("click", () => {
+      const query = $("searchInput").value.trim().toLowerCase();
+
+      if (!query) {
+        $("searchResults").innerHTML =
+          '<div class="empty">Enter something to search.</div>';
+        return;
+      }
+
+      const postResults = allPosts.filter((post) =>
+        `${post.name || ""} ${post.description || ""}`
+          .toLowerCase()
+          .includes(query)
+      );
+
+      const messageResults = allMessages.filter((message) =>
+        `${message.user_name || ""} ${message.message || ""}`
+          .toLowerCase()
+          .includes(query)
+      );
+
+      let html = "";
+
+      postResults.forEach((post) => {
+        html += `
+          <div class="card" style="margin-bottom:12px;">
+            <h3>${escapeHTML(post.name || "Village Post")}</h3>
+            <p>${escapeHTML(post.description || "")}</p>
+          </div>
+        `;
+      });
+
+      messageResults.forEach((message) => {
+        html += `
+          <div class="card" style="margin-bottom:12px;">
+            <h3>${escapeHTML(message.user_name || "Anonymous")}</h3>
+            <p>${escapeHTML(message.message || "")}</p>
+          </div>
+        `;
+      });
+
+      $("searchResults").innerHTML =
+        html || '<div class="empty">No results found.</div>';
+    });
+
+    loadHomePosts();
+    loadMessages();
+  </script>
 </body>
 </html>
