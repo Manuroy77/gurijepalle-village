@@ -16,8 +16,6 @@
       --text: #0f172a;
       --muted: #64748b;
       --border: #e2e8f0;
-      --danger: #dc2626;
-      --success: #16a34a;
     }
 
     * {
@@ -75,7 +73,7 @@
     }
 
     .menu-btn {
-      background: rgba(255,255,255,0.2);
+      background: rgba(255, 255, 255, 0.2);
       color: white;
       width: 42px;
       height: 42px;
@@ -90,7 +88,7 @@
       background: white;
       border-radius: 14px;
       padding: 10px;
-      box-shadow: 0 8px 25px rgba(15,23,42,0.18);
+      box-shadow: 0 8px 25px rgba(15, 23, 42, 0.18);
     }
 
     .menu-panel.open {
@@ -126,8 +124,15 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(5px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(5px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .hero {
@@ -164,7 +169,7 @@
       border: 1px solid var(--border);
       border-radius: 18px;
       padding: 18px;
-      box-shadow: 0 5px 18px rgba(15,23,42,0.05);
+      box-shadow: 0 5px 18px rgba(15, 23, 42, 0.05);
     }
 
     .card h3 {
@@ -272,7 +277,7 @@
     textarea:focus,
     select:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
     }
 
     textarea {
@@ -345,7 +350,7 @@
       border-top: 1px solid var(--border);
       display: flex;
       justify-content: center;
-      box-shadow: 0 -5px 20px rgba(15,23,42,0.08);
+      box-shadow: 0 -5px 20px rgba(15, 23, 42, 0.08);
     }
 
     .bottom-nav-inner {
@@ -457,8 +462,13 @@
         </p>
 
         <div class="actions">
-          <button class="btn btn-primary" data-page="photos">View Photos</button>
-          <button class="btn btn-secondary" data-page="messages">Send Message</button>
+          <button class="btn btn-primary" data-page="photos">
+            View Photos
+          </button>
+
+          <button class="btn btn-secondary" data-page="messages">
+            Send Message
+          </button>
         </div>
       </div>
 
@@ -467,21 +477,30 @@
       <div class="grid">
         <div class="card">
           <h3>🌾 Our Village</h3>
-          <p>Gurijepalli is our beautiful village filled with memories, culture and friendly people.</p>
+          <p>
+            Gurijepalli is our beautiful village filled with memories,
+            culture and friendly people.
+          </p>
         </div>
 
         <div class="card">
           <h3>🤝 Our People</h3>
-          <p>Our village website helps people stay connected and share useful information.</p>
+          <p>
+            Our village website helps people stay connected and share
+            useful information.
+          </p>
         </div>
 
         <div class="card">
           <h3>📸 Our Memories</h3>
-          <p>Upload village photos and preserve special moments digitally.</p>
+          <p>
+            Upload village photos and preserve special moments digitally.
+          </p>
         </div>
       </div>
 
       <h2 class="section-title">Latest Village Posts</h2>
+
       <div id="homePosts" class="grid">
         <div class="loading">Loading posts...</div>
       </div>
@@ -492,6 +511,7 @@
 
       <div class="form-card">
         <h3>Upload a Village Photo</h3>
+
         <p style="color:#64748b; margin:8px 0 16px;">
           Upload a photo with a title and description.
         </p>
@@ -504,7 +524,10 @@
 
           <div class="form-group">
             <label for="photoDescription">Description</label>
-            <textarea id="photoDescription" placeholder="Write something about this photo"></textarea>
+            <textarea
+              id="photoDescription"
+              placeholder="Write something about this photo"
+            ></textarea>
           </div>
 
           <div class="form-group">
@@ -513,7 +536,9 @@
             <img id="previewImage" class="preview" alt="Selected photo preview" />
           </div>
 
-          <button class="btn btn-primary" type="submit">Upload Photo</button>
+          <button class="btn btn-primary" type="submit">
+            Upload Photo
+          </button>
         </form>
       </div>
 
@@ -536,10 +561,16 @@
 
           <div class="form-group">
             <label for="messageText">Message</label>
-            <textarea id="messageText" required placeholder="Write your message"></textarea>
+            <textarea
+              id="messageText"
+              required
+              placeholder="Write your message"
+            ></textarea>
           </div>
 
-          <button class="btn btn-primary" type="submit">Send Message</button>
+          <button class="btn btn-primary" type="submit">
+            Send Message
+          </button>
         </form>
       </div>
 
@@ -620,8 +651,12 @@
   </nav>
 
   <script>
-    const SUPABASE_URL = "https://wxspgshtgcgkjctlckxy.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_KjU87yCYbuzdiV3_pi6uiQ_6H35oOvj";
+    const SUPABASE_URL =
+      "https://wxspgshtgcgkjctlckxy.supabase.co";
+
+    const SUPABASE_KEY =
+      "sb_publishable_KjU87yCYbuzdiV3_pi6uiQ_6H35oOvj";
+
     const STORAGE_BUCKET = "photos";
 
     const supabaseClient = window.supabase.createClient(
@@ -636,6 +671,7 @@
 
     function showNotice(message, type = "success") {
       const notice = $("notice");
+
       notice.textContent = message;
       notice.className = "notice show " + type;
 
@@ -655,8 +691,11 @@
 
     function formatDate(value) {
       if (!value) return "";
+
       const date = new Date(value);
+
       if (Number.isNaN(date.getTime())) return "";
+
       return date.toLocaleString("en-IN");
     }
 
@@ -680,7 +719,11 @@
       });
 
       $("menuPanel").classList.remove("open");
-      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
 
       if (pageName === "photos") loadPhotos();
       if (pageName === "messages") loadMessages();
@@ -713,7 +756,9 @@
 
     async function loadHomePosts() {
       const container = $("homePosts");
-      container.innerHTML = '<div class="loading">Loading posts...</div>';
+
+      container.innerHTML =
+        '<div class="loading">Loading posts...</div>';
 
       const { data, error } = await supabaseClient
         .from("posts")
@@ -722,7 +767,8 @@
         .limit(6);
 
       if (error) {
-        container.innerHTML = '<div class="empty">Posts could not be loaded.</div>';
+        container.innerHTML =
+          '<div class="empty">Posts could not be loaded.</div>';
         return;
       }
 
@@ -732,7 +778,9 @@
 
     async function loadPhotos() {
       const container = $("photoList");
-      container.innerHTML = '<div class="loading">Loading photos...</div>';
+
+      container.innerHTML =
+        '<div class="loading">Loading photos...</div>';
 
       const { data, error } = await supabaseClient
         .from("posts")
@@ -740,7 +788,8 @@
         .order("created_at", { ascending: false });
 
       if (error) {
-        container.innerHTML = '<div class="empty">Photos could not be loaded.</div>';
+        container.innerHTML =
+          '<div class="empty">Photos could not be loaded.</div>';
         return;
       }
 
@@ -750,7 +799,8 @@
 
     function renderPosts(container, posts) {
       if (!posts.length) {
-        container.innerHTML = '<div class="empty">No photos or posts available yet.</div>';
+        container.innerHTML =
+          '<div class="empty">No photos or posts available yet.</div>';
         return;
       }
 
@@ -761,12 +811,15 @@
           <article class="card post-card">
             ${
               imageURL
-                ? `<img src="${escapeHTML(imageURL)}" alt="${escapeHTML(post.name || "Village photo")}" />`
+                ? `<img src="${escapeHTML(imageURL)}" alt="${escapeHTML(
+                    post.name || "Village photo"
+                  )}" />`
                 : ""
             }
 
             <div class="post-content">
               <h3>${escapeHTML(post.name || "Village Post")}</h3>
+
               <p>${escapeHTML(post.description || "")}</p>
 
               <div class="meta">
@@ -774,24 +827,36 @@
               </div>
 
               <div class="actions">
-                <button class="btn btn-success like-btn" data-id="${escapeHTML(post.id)}">
+                <button
+                  class="btn btn-success like-btn"
+                  data-id="${escapeHTML(post.id)}"
+                >
                   ❤️ Like
                 </button>
 
-                <button class="btn btn-secondary comment-btn" data-id="${escapeHTML(post.id)}">
+                <button
+                  class="btn btn-secondary comment-btn"
+                  data-id="${escapeHTML(post.id)}"
+                >
                   💬 Comment
                 </button>
 
-                <button class="btn btn-danger report-btn" data-id="${escapeHTML(post.id)}">
+                <button
+                  class="btn btn-danger report-btn"
+                  data-id="${escapeHTML(post.id)}"
+                >
                   🚩 Report
                 </button>
               </div>
 
-              <div class="comment-box" id="comments-${escapeHTML(post.id)}"></div>
+              <div
+                class="comment-box"
+                id="comments-${escapeHTML(post.id)}"
+              ></div>
             </div>
           </article>
         `;
-      });
+      }).join("");
 
       attachPostEvents();
     }
@@ -834,30 +899,5 @@
       document.querySelectorAll(".comment-btn").forEach((button) => {
         button.addEventListener("click", async () => {
           const postId = button.dataset.id;
-          const name = prompt("Enter your name:");
 
-          if (!name) return;
-
-          const comment = prompt("Enter your comment:");
-
-          if (!comment) return;
-
-          let result = await supabaseClient
-            .from("comments")
-            .insert({
-              post_id: postId,
-              name: name,
-              comment: comment
-            });
-
-          if (result.error) {
-            result = await supabaseClient
-              .from("photo_comments")
-              .insert({
-                post_id: postId,
-                name: name,
-                comment: comment
-              });
-          }
-
-          if (result.er
+          
