@@ -7,488 +7,458 @@
 <title>గురిజేపల్లి గ్రామం</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Telugu:wght@400;600;700&family=Noto+Sans+Telugu:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;500;600;700&family=Noto+Serif+Telugu:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-:root {
-  --green: #214d32;
-  --green2: #2e6542;
-  --cream: #faf9f3;
-  --gold: #e8c477;
-  --text: #26352b;
-  --muted: #718078;
-  --white: #ffffff;
-  --line: #e2e8df;
+:root{
+  --green:#214d32;
+  --green-dark:#163b26;
+  --gold:#e8c477;
+  --cream:#faf9f3;
+  --white:#fff;
+  --text:#26352b;
+  --muted:#718078;
+  --line:#e0e8dc;
+  --soft:#edf3e9;
 }
 
-* {
-  box-sizing: border-box;
+*{
+  box-sizing:border-box;
 }
 
-html {
-  scroll-behavior: smooth;
+html{
+  scroll-behavior:smooth;
 }
 
-body {
-  margin: 0;
-  background: var(--cream);
-  color: var(--text);
-  font-family: "Noto Sans Telugu", sans-serif;
-  padding-bottom: 82px;
+body{
+  margin:0;
+  background:var(--cream);
+  color:var(--text);
+  font-family:"Noto Sans Telugu",sans-serif;
+  padding-bottom:85px;
 }
 
-.telugu {
-  font-family: "Noto Serif Telugu", serif;
+button,input,textarea{
+  font:inherit;
 }
 
-button,
-input,
-textarea {
-  font: inherit;
+button{
+  cursor:pointer;
 }
 
-button {
-  cursor: pointer;
+button:disabled{
+  opacity:.5;
+  cursor:not-allowed;
 }
 
-button:disabled {
-  opacity: .55;
-  cursor: not-allowed;
+.container{
+  width:100%;
+  max-width:1100px;
+  margin:auto;
+  padding:0 24px;
 }
 
-.container {
-  width: 100%;
-  max-width: 1100px;
-  margin: auto;
-  padding: 0 28px;
+.telugu{
+  font-family:"Noto Serif Telugu",serif;
 }
 
-.topbar {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  background: var(--green);
-  color: white;
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:var(--green);
+  color:white;
 }
 
-.topbar-inner {
-  min-height: 124px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
+.topbar-inner{
+  min-height:95px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
 }
 
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+.brand{
+  display:flex;
+  align-items:center;
+  gap:13px;
 }
 
-.location-logo {
-  width: 96px;
-  height: 96px;
-  border-radius: 28px;
-  background: var(--gold);
-  color: var(--green);
-  display: grid;
-  place-items: center;
-  font-size: 49px;
-  font-weight: bold;
+.location-logo{
+  width:62px;
+  height:62px;
+  border-radius:20px;
+  display:grid;
+  place-items:center;
+  background:var(--gold);
+  color:var(--green);
+  font-size:35px;
 }
 
-.brand h1 {
-  margin: 0;
-  font-size: 31px;
-  line-height: 1.2;
+.brand h1{
+  margin:0;
+  font-size:27px;
+  line-height:1.2;
 }
 
-.brand p {
-  margin: 7px 0 0;
-  font-size: 13px;
-  color: #d3dfd3;
+.brand p{
+  margin:5px 0 0;
+  color:#d6e3d6;
+  font-size:12px;
 }
 
-.menu-button {
-  width: 78px;
-  height: 74px;
-  border: 0;
-  border-radius: 22px;
-  background: rgba(255,255,255,.12);
-  color: white;
-  font-size: 43px;
-  line-height: 1;
+.menu-button{
+  width:55px;
+  height:52px;
+  border:0;
+  border-radius:16px;
+  background:rgba(255,255,255,.13);
+  color:white;
+  font-size:30px;
 }
 
-.menu-panel {
-  display: none;
-  background: #183b27;
-  padding: 15px 28px 24px;
+.menu-panel{
+  display:none;
+  background:var(--green-dark);
+  padding:10px 24px 18px;
 }
 
-.menu-panel.open {
-  display: block;
+.menu-panel.open{
+  display:block;
 }
 
-.menu-panel button {
-  display: block;
-  width: 100%;
-  text-align: left;
-  padding: 13px 0;
-  border: 0;
-  background: transparent;
-  color: white;
-  font-size: 17px;
+.menu-panel button{
+  width:100%;
+  display:block;
+  border:0;
+  background:transparent;
+  color:white;
+  text-align:left;
+  padding:13px 0;
+  font-size:16px;
 }
 
-.hero {
-  min-height: 900px;
-  color: white;
-  display: flex;
-  align-items: center;
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+.hero{
+  min-height:650px;
+  display:flex;
+  align-items:center;
+  color:white;
   background:
-    linear-gradient(90deg, rgba(18,57,34,.88), rgba(18,57,34,.2)),
+    linear-gradient(90deg,rgba(18,57,34,.9),rgba(18,57,34,.25)),
     url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1800&q=85")
-    center / cover;
+    center/cover;
 }
 
-.hero-content {
-  max-width: 720px;
-  padding: 100px 0;
+.hero-content{
+  max-width:680px;
+  padding:80px 0;
 }
 
-.eyebrow {
-  color: #d7e3cc;
-  letter-spacing: 4px;
-  font-size: 15px;
+.eyebrow{
+  color:#d7e3cc;
+  font-size:12px;
+  letter-spacing:2px;
 }
 
-.hero h2 {
-  font-family: "Noto Serif Telugu", serif;
-  font-size: clamp(48px, 8vw, 82px);
-  line-height: 1.5;
-  margin: 35px 0 25px;
+.hero h2{
+  font-family:"Noto Serif Telugu",serif;
+  font-size:clamp(45px,8vw,80px);
+  line-height:1.45;
+  margin:25px 0 20px;
 }
 
-.hero p {
-  font-family: "Noto Serif Telugu", serif;
-  font-size: 22px;
-  line-height: 2;
+.hero p{
+  font-family:"Noto Serif Telugu",serif;
+  font-size:20px;
+  line-height:2;
 }
 
-.actions {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-  margin-top: 35px;
+.actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:28px;
 }
 
-.btn {
-  border: 0;
-  border-radius: 35px;
-  padding: 15px 25px;
-  background: var(--gold);
-  color: var(--green);
-  font-weight: bold;
-  text-decoration: none;
+.btn{
+  border:0;
+  border-radius:30px;
+  padding:13px 21px;
+  background:var(--gold);
+  color:var(--green);
+  font-weight:bold;
 }
 
-.btn-outline {
-  background: transparent;
-  border: 1px solid white;
-  color: white;
+.btn-outline{
+  background:transparent;
+  color:white;
+  border:1px solid white;
 }
 
-.page {
-  display: none;
+section{
+  padding:55px 0;
 }
 
-.page.active {
-  display: block;
+.section-label{
+  color:#7d907e;
+  font-size:12px;
+  letter-spacing:2px;
 }
 
-section {
-  padding: 65px 0;
+.section-title{
+  font-family:"Noto Serif Telugu",serif;
+  font-size:35px;
+  margin:8px 0;
 }
 
-.section-title {
-  font-family: "Noto Serif Telugu", serif;
-  font-size: 37px;
-  margin: 10px 0;
-}
-
-.section-label {
-  color: #7d907e;
-  letter-spacing: 4px;
-  font-size: 13px;
-}
-
-.muted {
-  color: var(--muted);
-  line-height: 2;
-}
-
-.about-card {
-  background: white;
-  border-radius: 30px;
-  padding: 50px;
-  text-align: center;
-  box-shadow: 0 8px 30px rgba(25,55,35,.06);
-}
-
-.about-card h2 {
-  font-family: "Noto Serif Telugu", serif;
-  font-size: 38px;
-  line-height: 1.8;
-  margin: 20px 0;
-}
-
-.about-card p {
-  color: #718078;
-  font-size: 18px;
-  line-height: 2;
-}
-
-.about-footer {
-  color: #26352b !important;
-  font-weight: bold;
-  margin-top: 35px;
-}
-
-.community {
-  background: #edf3e9;
+.muted{
+  color:var(--muted);
+  line-height:2;
 }
 
 .upload-box,
-.message-box {
-  background: white;
-  border-radius: 25px;
-  padding: 28px;
-  margin: 28px 0;
+.message-box{
+  background:white;
+  border-radius:22px;
+  padding:25px;
+  margin:25px 0;
+  box-shadow:0 5px 25px rgba(25,55,35,.05);
 }
 
-.field {
-  margin: 17px 0;
+.field{
+  margin:16px 0;
 }
 
-.field label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 8px;
+.field label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:7px;
 }
 
 input,
-textarea {
-  width: 100%;
-  border: 1px solid #cbd9c5;
-  border-radius: 12px;
-  padding: 13px;
-  background: white;
-  color: var(--text);
+textarea{
+  width:100%;
+  border:1px solid #cbd9c5;
+  border-radius:12px;
+  padding:12px;
+  background:white;
+  color:var(--text);
+  outline:none;
 }
 
-textarea {
-  min-height: 110px;
-  resize: vertical;
+input:focus,
+textarea:focus{
+  border-color:var(--green);
 }
 
-.ratios {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+textarea{
+  min-height:100px;
+  resize:vertical;
 }
 
-.ratio {
-  border: 1px solid #cbd9c5;
-  background: white;
-  border-radius: 25px;
-  padding: 9px 15px;
+.preview{
+  display:none;
+  width:100%;
+  max-width:420px;
+  max-height:400px;
+  object-fit:contain;
+  border-radius:15px;
+  margin:18px auto;
+  background:var(--soft);
 }
 
-.ratio.active {
-  background: var(--green);
-  color: white;
+.ratios{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
 }
 
-.preview {
-  display: none;
-  width: 100%;
-  max-width: 450px;
-  max-height: 400px;
-  object-fit: contain;
-  border-radius: 15px;
-  background: #edf3e9;
-  margin: 20px auto;
+.ratio{
+  border:1px solid #cbd9c5;
+  background:white;
+  border-radius:22px;
+  padding:8px 14px;
 }
 
-.status {
-  margin-top: 12px;
-  color: var(--green);
-  overflow-wrap: anywhere;
+.ratio.active{
+  background:var(--green);
+  color:white;
 }
 
-.feed {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  gap: 22px;
+.status{
+  margin-top:12px;
+  line-height:1.7;
+  overflow-wrap:anywhere;
 }
 
-.post {
-  background: white;
-  border-radius: 22px;
-  padding: 18px;
-  overflow: hidden;
+.feed{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:20px;
 }
 
-.post-image {
-  width: 100%;
-  max-height: 520px;
-  object-fit: cover;
-  border-radius: 15px;
-  margin: 12px 0;
+.post{
+  background:white;
+  border-radius:20px;
+  padding:17px;
+  overflow:hidden;
+  box-shadow:0 4px 20px rgba(25,55,35,.04);
 }
 
-.post-name {
-  font-weight: bold;
-  color: var(--green);
+.post-name{
+  color:var(--green);
+  font-weight:bold;
 }
 
-.post-date {
-  color: #91a091;
-  font-size: 12px;
+.post-date{
+  color:#91a091;
+  font-size:12px;
+  margin-top:3px;
 }
 
-.post-description {
-  line-height: 1.9;
-  overflow-wrap: anywhere;
+.post-image{
+  display:block;
+  width:100%;
+  max-height:520px;
+  object-fit:cover;
+  border-radius:14px;
+  margin:12px 0;
 }
 
-.post-tools {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 15px;
+.post-description{
+  line-height:1.9;
+  overflow-wrap:anywhere;
 }
 
-.small-btn {
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  padding: 8px 12px;
-  background: #f8faf6;
-  color: var(--green);
+.post-tools{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:15px;
 }
 
-.comment-area {
-  display: none;
-  margin-top: 15px;
-  border-top: 1px solid var(--line);
-  padding-top: 15px;
+.small-btn{
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:8px 12px;
+  background:#f8faf6;
+  color:var(--green);
 }
 
-.comment-area.open {
-  display: block;
+.comment-area{
+  display:none;
+  margin-top:15px;
+  padding-top:15px;
+  border-top:1px solid var(--line);
 }
 
-.comment {
-  padding: 10px 0;
-  border-bottom: 1px solid #edf0eb;
-  overflow-wrap: anywhere;
+.comment-area.open{
+  display:block;
 }
 
-.comment strong {
-  color: var(--green);
+.comment{
+  padding:10px 0;
+  border-bottom:1px solid #edf0eb;
+  line-height:1.8;
+  overflow-wrap:anywhere;
 }
 
-.search-box {
-  margin: 25px 0;
+.comment strong{
+  color:var(--green);
 }
 
-.empty {
-  color: var(--muted);
-  padding: 25px 0;
+.empty{
+  color:var(--muted);
+  padding:20px 0;
 }
 
-.bottom-nav {
-  position: fixed;
-  z-index: 30;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: white;
-  border-top: 1px solid #e2e8df;
-  display: grid;
-  grid-template-columns: repeat(5,1fr);
-  padding: 8px 3px calc(8px + env(safe-area-inset-bottom));
+.about-card{
+  background:white;
+  border-radius:25px;
+  padding:35px 25px;
+  text-align:center;
 }
 
-.nav-item {
-  border: 0;
-  background: transparent;
-  color: #68736c;
-  font-size: 12px;
-  padding: 5px 0;
+.about-card h2{
+  font-family:"Noto Serif Telugu",serif;
+  font-size:32px;
+  line-height:1.8;
 }
 
-.nav-item span {
-  display: block;
-  font-size: 27px;
-  margin-bottom: 3px;
+.about-card p{
+  color:var(--muted);
+  line-height:2;
+  font-size:16px;
 }
 
-.nav-item.active {
-  color: var(--green);
-  font-weight: bold;
+.about-footer{
+  color:var(--green)!important;
+  font-weight:bold;
 }
 
-@media (max-width: 700px) {
-  .container {
-    padding: 0 30px;
+.bottom-nav{
+  position:fixed;
+  z-index:30;
+  left:0;
+  right:0;
+  bottom:0;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  background:white;
+  border-top:1px solid var(--line);
+  padding:7px 3px calc(7px + env(safe-area-inset-bottom));
+}
+
+.nav-item{
+  border:0;
+  background:transparent;
+  color:#68736c;
+  font-size:11px;
+  padding:4px 0;
+}
+
+.nav-item span{
+  display:block;
+  font-size:24px;
+  margin-bottom:3px;
+}
+
+.nav-item.active{
+  color:var(--green);
+  font-weight:bold;
+}
+
+@media(max-width:700px){
+  .container{
+    padding:0 20px;
   }
 
-  .topbar-inner {
-    min-height: 125px;
+  .feed{
+    grid-template-columns:1fr;
   }
 
-  .location-logo {
-    width: 96px;
-    height: 96px;
+  .hero{
+    min-height:650px;
   }
 
-  .brand h1 {
-    font-size: 28px;
+  .hero h2{
+    font-size:50px;
   }
 
-  .menu-button {
-    width: 72px;
-    height: 70px;
+  .hero p{
+    font-size:18px;
   }
 
-  .hero {
-    min-height: 900px;
-  }
-
-  .hero h2 {
-    font-size: 52px;
-  }
-
-  .hero p {
-    font-size: 19px;
-  }
-
-  .feed {
-    grid-template-columns: 1fr;
-  }
-
-  .about-card {
-    padding: 30px 20px;
-  }
-
-  .about-card h2 {
-    font-size: 31px;
-  }
-
-  .section-title {
-    font-size: 32px;
+  .brand h1{
+    font-size:24px;
   }
 }
 </style>
@@ -499,17 +469,17 @@ textarea {
 <header class="topbar">
   <div class="container topbar-inner">
     <div class="brand">
-      <div class="location-logo">⌖</div>
+      <div class="location-logo">📍</div>
       <div>
         <h1 class="telugu">గురిజేపల్లి</h1>
         <p class="telugu">మన ఊరు • మన మాట</p>
       </div>
     </div>
 
-    <button class="menu-button" id="menuButton" aria-label="Open menu">☰</button>
+    <button id="menuButton" class="menu-button" aria-label="Menu">☰</button>
   </div>
 
-  <div class="menu-panel" id="menuPanel">
+  <div id="menuPanel" class="menu-panel">
     <button data-page="home">⌂ Home</button>
     <button data-page="photos">▧ Photos</button>
     <button data-page="messages">☷ Messages</button>
@@ -529,8 +499,8 @@ textarea {
         <h2>మన ఊరు,<br>మన గర్వం.</h2>
 
         <p>
-          మన గ్రామ జ్ఞాపకాలు, ఫోటోలు, అభిప్రాయాలు అందరితో
-          పంచుకునే మన చిన్న digital space.
+          మన గ్రామ జ్ఞాపకాలు, ఫోటోలు, అభిప్రాయాలు
+          అందరితో పంచుకునే మన చిన్న digital space.
         </p>
 
         <div class="actions">
@@ -564,10 +534,10 @@ textarea {
       <div class="field">
         <label>Photo ratio</label>
         <div class="ratios">
-          <button class="ratio active" data-ratio="1 / 1">1:1</button>
-          <button class="ratio" data-ratio="4 / 5">4:5</button>
-          <button class="ratio" data-ratio="16 / 9">16:9</button>
-          <button class="ratio" data-ratio="9 / 16">9:16</button>
+          <button type="button" class="ratio active" data-ratio="1 / 1">1:1</button>
+          <button type="button" class="ratio" data-ratio="4 / 5">4:5</button>
+          <button type="button" class="ratio" data-ratio="16 / 9">16:9</button>
+          <button type="button" class="ratio" data-ratio="9 / 16">9:16</button>
         </div>
       </div>
 
@@ -578,11 +548,13 @@ textarea {
         <textarea id="photoDescription" placeholder="ఈ ఫోటో గురించి రాయండి..."></textarea>
       </div>
 
-      <button class="btn" id="publishPhoto">Publish Photo</button>
-      <div class="status" id="photoStatus"></div>
+      <button id="publishPhoto" class="btn">Publish Photo</button>
+      <div id="photoStatus" class="status"></div>
     </div>
 
-    <div class="feed" id="photoFeed"></div>
+    <div id="photoFeed" class="feed">
+      <p class="empty">Photos loading...</p>
+    </div>
   </div>
 </section>
 
@@ -603,11 +575,13 @@ textarea {
         <textarea id="messageText" placeholder="మీ అభిప్రాయం రాయండి..."></textarea>
       </div>
 
-      <button class="btn" id="sendMessage">Send Message</button>
-      <div class="status" id="messageStatus"></div>
+      <button id="sendMessage" class="btn">Send Message</button>
+      <div id="messageStatus" class="status"></div>
     </div>
 
-    <div class="feed" id="messageFeed"></div>
+    <div id="messageFeed" class="feed">
+      <p class="empty">Messages loading...</p>
+    </div>
   </div>
 </section>
 
@@ -616,11 +590,9 @@ textarea {
     <div class="section-label">SEARCH</div>
     <h2 class="section-title telugu">వెతకండి</h2>
 
-    <div class="search-box">
-      <input id="searchInput" placeholder="ఫోటోలు లేదా మెసేజ్‌లను వెతకండి...">
-    </div>
+    <input id="searchInput" placeholder="ఫోటోలు లేదా మెసేజ్‌లను వెతకండి...">
 
-    <div class="feed" id="searchFeed"></div>
+    <div id="searchFeed" class="feed" style="margin-top:25px"></div>
   </div>
 </section>
 
@@ -686,7 +658,7 @@ textarea {
 const SUPABASE_URL = "https://wxspgshtgcgkjctlckxy.supabase.co";
 const SUPABASE_KEY = "sb_publishable_KjU87yCYbuzdiV3_pi6uiQ_6H35oOvj";
 
-const supabaseClient = window.supabase.createClient(
+const db = window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
@@ -695,86 +667,96 @@ const $ = id => document.getElementById(id);
 
 let selectedFile = null;
 let selectedRatio = "1 / 1";
+let allPosts = [];
+let allMessages = [];
 
-function escapeHtml(value) {
+function escapeHtml(value){
   return String(value ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 }
 
-function dateText(value) {
-  if (!value) return "ఇటీవల";
-  return new Date(value).toLocaleDateString("te-IN", {
-    year: "numeric",
-    month: "short",
-    day: "numeric"
+function dateText(value){
+  if(!value) return "ఇటీవల";
+
+  return new Date(value).toLocaleDateString("te-IN",{
+    year:"numeric",
+    month:"short",
+    day:"numeric"
   });
 }
 
-function setStatus(id, text, error = false) {
+function status(id,text,error=false){
   $(id).textContent = text;
   $(id).style.color = error ? "#b33a3a" : "#214d32";
 }
 
-function openPage(page) {
-  document.querySelectorAll(".page").forEach(item => {
-    item.classList.toggle("active", item.id === page);
+function openPage(page){
+  document.querySelectorAll(".page").forEach(section=>{
+    section.classList.toggle("active",section.id === page);
   });
 
-  document.querySelectorAll(".nav-item").forEach(item => {
-    item.classList.toggle("active", item.dataset.page === page);
+  document.querySelectorAll(".nav-item").forEach(button=>{
+    button.classList.toggle("active",button.dataset.page === page);
   });
 
   $("menuPanel").classList.remove("open");
-  window.scrollTo({ top: 0, behavior: "smooth" });
 
-  if (page === "photos") loadPhotos();
-  if (page === "messages") loadMessages();
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+  if(page === "photos") loadPhotos();
+  if(page === "messages") loadMessages();
+  if(page === "search") renderSearch($("searchInput").value);
 }
 
-document.querySelectorAll("[data-page]").forEach(button => {
-  button.addEventListener("click", () => openPage(button.dataset.page));
+document.querySelectorAll("[data-page]").forEach(button=>{
+  button.addEventListener("click",()=>{
+    openPage(button.dataset.page);
+  });
 });
 
-$("menuButton").addEventListener("click", () => {
+$("menuButton").addEventListener("click",()=>{
   $("menuPanel").classList.toggle("open");
 });
 
-document.querySelectorAll(".ratio").forEach(button => {
-  button.addEventListener("click", () => {
-    document.querySelectorAll(".ratio").forEach(item => {
+document.querySelectorAll(".ratio").forEach(button=>{
+  button.addEventListener("click",()=>{
+    document.querySelectorAll(".ratio").forEach(item=>{
       item.classList.remove("active");
     });
 
     button.classList.add("active");
     selectedRatio = button.dataset.ratio;
 
-    if (selectedFile) {
+    if(selectedFile){
       $("preview").style.aspectRatio = selectedRatio;
     }
   });
 });
 
-$("photoInput").addEventListener("change", event => {
+$("photoInput").addEventListener("change",event=>{
   selectedFile = event.target.files[0] || null;
 
-  if (!selectedFile) {
+  if(!selectedFile){
     $("preview").style.display = "none";
     return;
   }
 
-  if (!selectedFile.type.startsWith("image/")) {
-    setStatus("photoStatus", "Image file మాత్రమే ఎంచుకోండి.", true);
+  if(!selectedFile.type.startsWith("image/")){
+    status("photoStatus","Image file మాత్రమే ఎంచుకోండి.",true);
     selectedFile = null;
     event.target.value = "";
     return;
   }
 
-  if (selectedFile.size > 8 * 1024 * 1024) {
-    setStatus("photoStatus", "Photo size 8MB కంటే తక్కువగా ఉండాలి.", true);
+  if(selectedFile.size > 8 * 1024 * 1024){
+    status("photoStatus","Photo size 8MB కంటే తక్కువగా ఉండాలి.",true);
     selectedFile = null;
     event.target.value = "";
     return;
@@ -782,7 +764,7 @@ $("photoInput").addEventListener("change", event => {
 
   const reader = new FileReader();
 
-  reader.onload = () => {
+  reader.onload = ()=>{
     $("preview").src = reader.result;
     $("preview").style.aspectRatio = selectedRatio;
     $("preview").style.display = "block";
@@ -791,59 +773,100 @@ $("photoInput").addEventListener("change", event => {
   reader.readAsDataURL(selectedFile);
 });
 
-async function loadPhotos() {
+$("publishPhoto").addEventListener("click",async()=>{
+  const name = $("photoName").value.trim();
+  const description = $("photoDescription").value.trim();
+  const button = $("publishPhoto");
+
+  if(!name || !selectedFile || !description){
+    status("photoStatus","పేరు, ఫోటో, description అన్నీ ఇవ్వండి.",true);
+    return;
+  }
+
+  button.disabled = true;
+  status("photoStatus","Photo uploading...");
+
+  try{
+    const fileName =
+      Date.now() + "-" +
+      Math.random().toString(36).slice(2) +
+      "-" +
+      selectedFile.name.replace(/[^a-zA-Z0-9.-]/g,"-");
+
+    const upload = await db.storage
+      .from("photos")
+      .upload(fileName,selectedFile,{
+        cacheControl:"3600",
+        upsert:false,
+        contentType:selectedFile.type
+      });
+
+    if(upload.error) throw upload.error;
+
+    const publicUrl = db.storage
+      .from("photos")
+      .getPublicUrl(fileName).data.publicUrl;
+
+    const insert = await db
+      .from("posts")
+      .insert({
+        name:name,
+        image_url:publicUrl,
+        description:description
+      });
+
+    if(insert.error) throw insert.error;
+
+    status("photoStatus","Photo successfully published!");
+
+    $("photoName").value = "";
+    $("photoDescription").value = "";
+    $("photoInput").value = "";
+    $("preview").style.display = "none";
+    selectedFile = null;
+
+    await loadPhotos();
+
+  }catch(error){
+    console.error(error);
+    status("photoStatus","Upload failed: " + error.message,true);
+  }finally{
+    button.disabled = false;
+  }
+});
+
+async function loadPhotos(){
   $("photoFeed").innerHTML = `<p class="empty">Photos loading...</p>`;
 
-  const { data, error } = await supabaseClient
+  const result = await db
     .from("posts")
     .select("*")
-    .order("created_at", { ascending: false });
+    .order("created_at",{ascending:false});
 
-  if (error) {
+  if(result.error){
+    console.error(result.error);
     $("photoFeed").innerHTML =
-      `<p class="empty">Photos load కాలేదు. SQL policies check చెయ్యండి.</p>`;
-    console.error(error);
+      `<p class="empty">Photos load కాలేదు. Supabase table/policy check చేయండి.</p>`;
     return;
   }
 
-  if (!data.length) {
+  allPosts = result.data || [];
+
+  if(!allPosts.length){
     $("photoFeed").innerHTML =
       `<p class="empty">ఇంకా photos లేవు.</p>`;
+    renderSearch($("searchInput").value);
     return;
   }
 
-  $("photoFeed").innerHTML = data.map(post => postCard(post)).join("");
-  attachCardEvents();
+  $("photoFeed").innerHTML = allPosts.map(postCard).join("");
+  attachPostEvents();
+  renderSearch($("searchInput").value);
 }
 
-async function loadMessages() {
-  $("messageFeed").innerHTML = `<p class="empty">Messages loading...</p>`;
-
-  const { data, error } = await supabaseClient
-    .from("messages")
-    .select("*")
-    .order("created_at", { ascending: false });
-
-  if (error) {
-    $("messageFeed").innerHTML =
-      `<p class="empty">Messages load కాలేదు.</p>`;
-    console.error(error);
-    return;
-  }
-
-  if (!data.length) {
-    $("messageFeed").innerHTML =
-      `<p class="empty">ఇంకా messages లేవు.</p>`;
-    return;
-  }
-
-  $("messageFeed").innerHTML = data.map(message => messageCard(message)).join("");
-  attachCardEvents();
-}
-
-function postCard(post) {
+function postCard(post){
   return `
-    <article class="post" data-type="post" data-id="${post.id}">
+    <article class="post" data-post-id="${post.id}">
       <div class="post-name">${escapeHtml(post.name)}</div>
       <div class="post-date">${dateText(post.created_at)}</div>
 
@@ -851,11 +874,12 @@ function postCard(post) {
         class="post-image"
         src="${escapeHtml(post.image_url)}"
         alt="Village photo"
-        style="aspect-ratio:${escapeHtml(post.ratio || "1 / 1")}"
         loading="lazy"
       >
 
-      <div class="post-description">${escapeHtml(post.description)}</div>
+      <div class="post-description">
+        ${escapeHtml(post.description)}
+      </div>
 
       <div class="post-tools">
         <button class="small-btn like-btn">♡ Like <span class="like-count">0</span></button>
@@ -865,100 +889,92 @@ function postCard(post) {
 
       <div class="comment-area">
         <input class="comment-name" placeholder="మీ పేరు">
-        <textarea class="comment-text" placeholder="Comment లేదా reply రాయండి..."></textarea>
+
+        <textarea class="comment-text" placeholder="Comment రాయండి..."></textarea>
+
         <button class="btn add-comment">Send</button>
+
         <div class="comments-list"></div>
       </div>
     </article>
   `;
 }
 
-function messageCard(message) {
-  return `
-    <article class="post" data-type="message" data-id="${message.id}">
-      <div class="post-name">${escapeHtml(message.name)}</div>
-      <div class="post-date">${dateText(message.created_at)}</div>
+async function attachPostEvents(){
+  document.querySelectorAll(".post").forEach(async card=>{
+    const id = Number(card.dataset.postId);
+    const count = await getLikeCount(id);
 
-      <p class="post-description">${escapeHtml(message.message)}</p>
+    if(card.querySelector(".like-count")){
+      card.querySelector(".like-count").textContent = count;
+    }
+  });
 
-      <div class="post-tools">
-        <button class="small-btn like-btn">♡ Like <span class="like-count">0</span></button>
-        <button class="small-btn comment-btn">Comments</button>
-        <button class="small-btn report-btn">Report</button>
-      </div>
-
-      <div class="comment-area">
-        <input class="comment-name" placeholder="మీ పేరు">
-        <textarea class="comment-text" placeholder="Comment లేదా reply రాయండి..."></textarea>
-        <button class="btn add-comment">Send</button>
-        <div class="comments-list"></div>
-      </div>
-    </article>
-  `;
-}
-
-function attachCardEvents() {
-  document.querySelectorAll(".like-btn").forEach(button => {
-    button.addEventListener("click", async () => {
+  document.querySelectorAll(".like-btn").forEach(button=>{
+    button.addEventListener("click",async()=>{
       const card = button.closest(".post");
-      const type = card.dataset.type;
-      const id = card.dataset.id;
+      const postId = Number(card.dataset.postId);
       const name = prompt("మీ పేరు రాయండి:");
 
-      if (!name || !name.trim()) return;
+      if(!name || !name.trim()) return;
 
-      const payload = {
-        name: name.trim()
-      };
-
-      if (type === "post") payload.post_id = id;
-      else payload.message_id = id;
-
-      const { error } = await supabaseClient
+      const result = await db
         .from("reactions")
-        .insert(payload);
+        .insert({
+          post_id:postId,
+          user_name:name.trim(),
+          reaction:"like"
+        });
 
-      if (error) {
+      if(result.error){
+        console.error(result.error);
         alert("Like submit కాలేదు.");
-        console.error(error);
         return;
       }
 
-      const count = await getLikeCount(type, id);
+      const count = await getLikeCount(postId);
       card.querySelector(".like-count").textContent = count;
-      button.textContent = `♥ Like ${count}`;
+      button.innerHTML = `♥ Like <span class="like-count">${count}</span>`;
     });
   });
 
-  document.querySelectorAll(".comment-btn").forEach(button => {
-    button.addEventListener("click", async () => {
+  document.querySelectorAll(".comment-btn").forEach(button=>{
+    button.addEventListener("click",async()=>{
       const card = button.closest(".post");
       const area = card.querySelector(".comment-area");
+
       area.classList.toggle("open");
 
-      if (area.classList.contains("open")) {
+      if(area.classList.contains("open")){
         await loadComments(card);
       }
     });
   });
 
-  document.querySelectorAll(".add-comment").forEach(button => {
-    button.addEventListener("click", async () => {
+  document.querySelectorAll(".add-comment").forEach(button=>{
+    button.addEventListener("click",async()=>{
       const card = button.closest(".post");
-      const type = card.dataset.type;
-      const id = card.dataset.id;
+      const postId = Number(card.dataset.postId);
       const name = card.querySelector(".comment-name").value.trim();
       const comment = card.querySelector(".comment-text").value.trim();
 
-      if (!name || !comment) {
+      if(!name || !comment){
         alert("Name and comment రెండూ రాయండి.");
         return;
       }
 
-      const payload = {
-        name,
-        comment
-      };
+      const result = await db
+        .from("comments")
+        .insert({
+          post_id:postId,
+          name:name,
+          comment:comment
+        });
 
-      if (type === "post") payload.post_id = id;
-      else payload.mess
+      if(result.error){
+        console.error(result.error);
+        alert("Comment submit కాలేదు.");
+        return;
+      }
+
+      ca
