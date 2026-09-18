@@ -1014,6 +1014,7 @@ if (result.error) {
       const { error } = await supabaseClient
         .from("messages")
         .insert({
+          name:name,
           user_name: name,
           message: message
         });
