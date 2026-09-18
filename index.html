@@ -3,166 +3,281 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>Gurijepalli Village</title>
 
-  <meta
-    name="description"
-    content="Gurijepalli Village - మన ఊరు • మన గర్వం"
-  />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
+    :root {
+      --primary: #2563eb;
+      --secondary: #0f172a;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+    }
+
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     body {
       font-family: Arial, sans-serif;
-      background: #f5f9ff;
-      color: #222;
+      background: var(--bg);
+      color: var(--text);
+      padding-bottom: 80px;
     }
 
-    header {
-      background: #1976d2;
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+    }
+
+    .app-header {
+      background: linear-gradient(135deg, #1d4ed8, #2563eb, #38bdf8);
       color: white;
-      padding: 18px 20px;
+      padding: 24px 18px;
       position: sticky;
       top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      z-index: 20;
+      box-shadow: 0 4px 15px rgba(15, 23, 42, 0.15);
     }
 
     .header-inner {
-      max-width: 1200px;
+      max-width: 1100px;
       margin: auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 15px;
     }
 
-    .logo h1 {
-      font-size: 24px;
+    .brand h1 {
+      font-size: 25px;
+      margin-bottom: 5px;
     }
 
-    .logo p {
+    .brand p {
       font-size: 13px;
-      margin-top: 3px;
       opacity: 0.9;
     }
 
-    nav {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    nav button {
-      border: none;
-      background: transparent;
-      color: white;
-      padding: 9px 13px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    nav button:hover,
-    nav button.active {
+    .menu-btn {
       background: rgba(255, 255, 255, 0.2);
+      color: white;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      font-size: 22px;
     }
 
-    .container {
-      width: 92%;
-      max-width: 1200px;
+    .menu-panel {
+      display: none;
+      max-width: 1100px;
+      margin: 12px auto 0;
+      background: white;
+      border-radius: 14px;
+      padding: 10px;
+      box-shadow: 0 8px 25px rgba(15, 23, 42, 0.18);
+    }
+
+    .menu-panel.open {
+      display: block;
+    }
+
+    .menu-panel button {
+      width: 100%;
+      text-align: left;
+      background: white;
+      padding: 13px;
+      border-radius: 10px;
+      color: var(--text);
+    }
+
+    .menu-panel button:hover {
+      background: #eff6ff;
+    }
+
+    main {
+      max-width: 1100px;
       margin: auto;
+      padding: 20px 15px;
     }
 
     .page {
       display: none;
-      padding: 30px 0 50px;
+      animation: fadeIn 0.2s ease;
     }
 
     .page.active {
       display: block;
     }
 
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(5px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .hero {
-      background: linear-gradient(135deg, #1976d2, #42a5f5);
-      color: white;
-      border-radius: 14px;
-      padding: 55px 25px;
-      text-align: center;
-      margin-bottom: 30px;
+      background: linear-gradient(135deg, #dbeafe, #e0f2fe);
+      border-radius: 24px;
+      padding: 35px 25px;
+      margin-bottom: 20px;
     }
 
     .hero h2 {
-      font-size: 40px;
+      font-size: 32px;
       margin-bottom: 10px;
+      color: #1e3a8a;
     }
 
     .hero p {
-      font-size: 17px;
-      opacity: 0.95;
+      color: #334155;
+      line-height: 1.6;
     }
 
     .section-title {
-      margin: 25px 0 18px;
-      color: #1565c0;
-      font-size: 27px;
+      font-size: 23px;
+      margin: 25px 0 14px;
     }
 
-    .card-grid {
+    .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 18px;
+      gap: 16px;
     }
 
     .card {
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 5px 18px rgba(15, 23, 42, 0.05);
     }
 
     .card h3 {
       margin-bottom: 8px;
-      color: #1565c0;
     }
 
     .card p {
+      color: var(--muted);
       line-height: 1.6;
-      color: #555;
+      white-space: pre-wrap;
     }
 
-    .upload-box,
-    .form-box,
-    .search-box {
+    .post-card {
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .post-card img {
+      display: block;
+      width: 100%;
+      max-height: 360px;
+      object-fit: cover;
+      background: #e2e8f0;
+    }
+
+    .post-content {
+      padding: 17px;
+    }
+
+    .post-content h3 {
+      margin-bottom: 8px;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .btn {
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .btn-danger {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .btn-success {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .form-card {
       background: white;
-      padding: 22px;
-      border-radius: 12px;
-      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
-      margin-bottom: 25px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 7px;
+      font-size: 14px;
     }
 
     input,
     textarea,
     select {
       width: 100%;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
       padding: 12px;
-      margin: 8px 0 15px;
-      border: 1px solid #ccc;
-      border-radius: 7px;
-      font-size: 14px;
       outline: none;
+      background: white;
     }
 
     input:focus,
     textarea:focus,
     select:focus {
-      border-color: #1976d2;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
     }
 
     textarea {
@@ -170,924 +285,830 @@
       resize: vertical;
     }
 
-    .btn {
-      border: none;
-      padding: 11px 16px;
-      border-radius: 7px;
-      cursor: pointer;
-      font-size: 14px;
-      margin-right: 5px;
-      margin-bottom: 5px;
-    }
-
-    .btn-primary {
-      background: #1976d2;
-      color: white;
-    }
-
-    .btn-primary:hover {
-      background: #1565c0;
-    }
-
-    .btn-success {
-      background: #2e7d32;
-      color: white;
-    }
-
-    .btn-danger {
-      background: #d32f2f;
-      color: white;
-    }
-
-    .btn-warning {
-      background: #f9a825;
-      color: white;
-    }
-
-    .posts-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
-    }
-
-    .post-card {
+    .empty {
+      text-align: center;
+      padding: 35px 15px;
+      color: var(--muted);
       background: white;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.09);
-    }
-
-    .post-image {
-      width: 100%;
-      height: 240px;
-      object-fit: cover;
-      display: block;
-      background: #eee;
-    }
-
-    .post-content {
-      padding: 17px;
-    }
-
-    .post-title {
-      font-size: 18px;
-      color: #1565c0;
-      margin-bottom: 7px;
-    }
-
-    .post-description {
-      color: #555;
-      line-height: 1.5;
-      margin-bottom: 12px;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-
-    .post-meta {
-      font-size: 12px;
-      color: #888;
-      margin-bottom: 12px;
-    }
-
-    .post-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-    }
-
-    .post-actions .btn {
-      margin: 0;
-    }
-
-    .like-btn,
-    .comment-btn {
-      background: #eef5ff;
-      color: #1565c0;
-    }
-
-    .report-btn {
-      background: #fff3e0;
-      color: #e65100;
-    }
-
-    .like-count,
-    .comment-count {
-      display: inline-block;
-      min-width: 18px;
-      font-weight: bold;
-      margin-left: 3px;
-    }
-
-    .message {
-      padding: 12px 15px;
-      border-radius: 7px;
-      margin-bottom: 15px;
-      display: none;
-    }
-
-    .message.success {
-      background: #e8f5e9;
-      color: #2e7d32;
-    }
-
-    .message.error {
-      background: #ffebee;
-      color: #c62828;
+      border: 1px dashed #cbd5e1;
+      border-radius: 16px;
     }
 
     .loading {
       text-align: center;
-      padding: 30px;
-      color: #777;
-    }
-
-    .empty {
-      text-align: center;
-      padding: 35px;
-      background: white;
-      border-radius: 12px;
-      color: #777;
-    }
-
-    footer {
-      background: #1565c0;
-      color: white;
-      text-align: center;
-      padding: 25px 15px;
-      margin-top: 40px;
-    }
-
-    footer p {
-      margin: 5px 0;
-    }
-
-    .location-box {
-      background: white;
-      border-radius: 12px;
       padding: 25px;
-      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
-      line-height: 1.8;
+      color: var(--muted);
     }
 
-    .location-box strong {
-      color: #1565c0;
+    .notice {
+      display: none;
+      padding: 13px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      font-size: 14px;
     }
 
-    @media (max-width: 700px) {
-      .header-inner {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+    .notice.show {
+      display: block;
+    }
 
-      nav {
-        width: 100%;
-        overflow-x: auto;
-      }
+    .notice.success {
+      background: #dcfce7;
+      color: #166534;
+    }
 
+    .notice.error {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .comment-box {
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid var(--border);
+    }
+
+    .comment-item {
+      background: #f8fafc;
+      border-radius: 10px;
+      padding: 10px;
+      margin-top: 8px;
+      font-size: 13px;
+    }
+
+    .comment-item strong {
+      color: #1d4ed8;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 30;
+      background: white;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: center;
+      box-shadow: 0 -5px 20px rgba(15, 23, 42, 0.08);
+    }
+
+    .bottom-nav-inner {
+      width: 100%;
+      max-width: 700px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    .nav-item {
+      background: white;
+      color: #64748b;
+      padding: 10px 3px;
+      font-size: 11px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav-item span {
+      font-size: 21px;
+    }
+
+    .nav-item.active {
+      color: var(--primary);
+      background: #eff6ff;
+      font-weight: bold;
+    }
+
+    .search-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .search-row input {
+      flex: 1;
+    }
+
+    .preview {
+      width: 100%;
+      max-height: 260px;
+      object-fit: contain;
+      border-radius: 12px;
+      margin-top: 10px;
+      display: none;
+      background: #f1f5f9;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 30px;
+      padding: 20px;
+    }
+
+    @media (max-width: 600px) {
       .hero h2 {
-        font-size: 30px;
+        font-size: 26px;
       }
 
       .hero {
-        padding: 40px 20px;
+        padding: 25px 18px;
       }
 
-      .post-image {
-        height: 220px;
+      .header-inner {
+        align-items: flex-start;
+      }
+
+      .brand h1 {
+        font-size: 21px;
       }
     }
   </style>
 </head>
 
 <body>
-
-  <!-- HEADER -->
-  <header>
+  <header class="app-header">
     <div class="header-inner">
-
-      <div class="logo">
+      <div class="brand">
         <h1>Gurijepalli Village</h1>
         <p>మన ఊరు • మన గర్వం</p>
       </div>
 
-      <nav>
-        <button class="nav-btn active" data-page="home">Home</button>
-        <button class="nav-btn" data-page="photos">Photos</button>
-        <button class="nav-btn" data-page="upload">Upload</button>
-        <button class="nav-btn" data-page="location">Location</button>
-      </nav>
+      <button class="menu-btn" id="menuBtn">☰</button>
+    </div>
 
+    <div class="menu-panel" id="menuPanel">
+      <button data-page="home">🏠 Home</button>
+      <button data-page="photos">📸 Village Photos</button>
+      <button data-page="messages">💬 Messages</button>
+      <button data-page="search">🔎 Search</button>
+      <button data-page="about">ℹ️ About Village</button>
     </div>
   </header>
 
+  <main>
+    <div id="notice" class="notice"></div>
 
-  <main class="container">
-
-    <!-- HOME -->
     <section id="home" class="page active">
-
       <div class="hero">
         <h2>Welcome to Gurijepalli</h2>
-        <p>మన ఊరు • మన గర్వం</p>
+        <p>
+          This is the digital home of Gurijepalli village.
+          Share village memories, photos, messages and important updates
+          with our village people.
+        </p>
+
+        <div class="actions">
+          <button class="btn btn-primary" data-page="photos">
+            View Photos
+          </button>
+
+          <button class="btn btn-secondary" data-page="messages">
+            Send Message
+          </button>
+        </div>
       </div>
 
       <h2 class="section-title">Village Highlights</h2>
 
-      <div class="card-grid">
-
+      <div class="grid">
         <div class="card">
           <h3>🌾 Our Village</h3>
           <p>
-            Gurijepalli is our beautiful village filled with nature,
-            traditions, memories and people who make our village special.
+            Gurijepalli is our beautiful village filled with memories,
+            culture and friendly people.
           </p>
         </div>
 
         <div class="card">
-          <h3>🌳 Nature</h3>
+          <h3>🤝 Our People</h3>
           <p>
-            Enjoy the greenery, agricultural fields and peaceful
-            surroundings of our village.
+            Our village website helps people stay connected and share
+            useful information.
           </p>
         </div>
 
         <div class="card">
-          <h3>🤝 Community</h3>
+          <h3>📸 Our Memories</h3>
           <p>
-            A place where people come together and celebrate our
-            traditions and special moments.
+            Upload village photos and preserve special moments digitally.
           </p>
         </div>
-
       </div>
 
-      <h2 class="section-title">Latest Village Photos</h2>
+      <h2 class="section-title">Latest Village Posts</h2>
 
-      <div id="homePosts" class="posts-grid">
+      <div id="homePosts" class="grid">
         <div class="loading">Loading posts...</div>
       </div>
-
     </section>
 
-
-    <!-- PHOTOS -->
     <section id="photos" class="page">
-
       <h2 class="section-title">Village Photos</h2>
 
-      <div class="search-box">
-        <input
-          type="text"
-          id="photoSearch"
-          placeholder="Search photos..."
-        />
-      </div>
+      <div class="form-card">
+        <h3>Upload a Village Photo</h3>
 
-      <div id="photoPosts" class="posts-grid">
-        <div class="loading">Loading photos...</div>
-      </div>
-
-    </section>
-
-
-    <!-- UPLOAD -->
-    <section id="upload" class="page">
-
-      <h2 class="section-title">Upload Village Photo</h2>
-
-      <div id="uploadMessage" class="message"></div>
-
-      <div class="upload-box">
+        <p style="color:#64748b; margin:8px 0 16px;">
+          Upload a photo with a title and description.
+        </p>
 
         <form id="uploadForm">
+          <div class="form-group">
+            <label for="photoName">Photo Title</label>
+            <input id="photoName" required placeholder="Enter photo title" />
+          </div>
 
-          <label>
-            Your Name
-          </label>
+          <div class="form-group">
+            <label for="photoDescription">Description</label>
+            <textarea
+              id="photoDescription"
+              placeholder="Write something about this photo"
+            ></textarea>
+          </div>
 
-          <input
-            type="text"
-            id="uploaderName"
-            placeholder="Enter your name"
-            required
-          />
+          <div class="form-group">
+            <label for="photoFile">Choose Photo</label>
+            <input id="photoFile" type="file" accept="image/*" required />
+            <img id="previewImage" class="preview" alt="Selected photo preview" />
+          </div>
 
-          <label>
-            Photo
-          </label>
-
-          <input
-            type="file"
-            id="photoFile"
-            accept="image/*"
-            required
-          />
-
-          <label>
-            Description
-          </label>
-
-          <textarea
-            id="photoDescription"
-            placeholder="Write something about this photo..."
-          ></textarea>
-
-          <button
-            type="submit"
-            class="btn btn-primary"
-          >
-            📤 Publish Photo
+          <button class="btn btn-primary" type="submit">
+            Upload Photo
           </button>
-
         </form>
-
       </div>
 
+      <div id="photoList" class="grid">
+        <div class="loading">Loading photos...</div>
+      </div>
     </section>
 
+    <section id="messages" class="page">
+      <h2 class="section-title">Village Messages</h2>
 
-    <!-- LOCATION -->
-    <section id="location" class="page">
+      <div class="form-card">
+        <h3>Send a Message</h3>
 
-      <h2 class="section-title">Gurijepalli Location</h2>
+        <form id="messageForm">
+          <div class="form-group">
+            <label for="messageName">Your Name</label>
+            <input id="messageName" required placeholder="Enter your name" />
+          </div>
 
-      <div class="location-box">
+          <div class="form-group">
+            <label for="messageText">Message</label>
+            <textarea
+              id="messageText"
+              required
+              placeholder="Write your message"
+            ></textarea>
+          </div>
 
-        <p>
-          <strong>Village:</strong>
-          Gurijepalli
-        </p>
-
-        <p>
-          <strong>Mandal:</strong>
-          Santhamagulur
-        </p>
-
-        <p>
-          <strong>District:</strong>
-          Prakasam
-        </p>
-
-        <p>
-          <strong>State:</strong>
-          Andhra Pradesh
-        </p>
-
-        <br />
-
-        <p>
-          Gurijepalli is a beautiful village surrounded by
-          agricultural lands and natural greenery.
-        </p>
-
+          <button class="btn btn-primary" type="submit">
+            Send Message
+          </button>
+        </form>
       </div>
 
+      <div id="messageList" class="grid">
+        <div class="loading">Loading messages...</div>
+      </div>
     </section>
 
+    <section id="search" class="page">
+      <h2 class="section-title">Search Village Content</h2>
+
+      <div class="search-row">
+        <input id="searchInput" placeholder="Search posts or messages..." />
+        <button id="searchBtn" class="btn btn-primary">Search</button>
+      </div>
+
+      <div id="searchResults"></div>
+    </section>
+
+    <section id="about" class="page">
+      <h2 class="section-title">About Gurijepalli</h2>
+
+      <div class="card">
+        <h3>About Our Village</h3>
+        <p>
+          Gurijepalli is our native place and our emotional home.
+          This website is created to connect village people,
+          preserve memories and share village-related information.
+        </p>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <h3>Website Features</h3>
+        <p>
+          • Village photo uploads
+          • Village messages
+          • Likes and comments
+          • Search option
+          • Digital village memories
+        </p>
+      </div>
+    </section>
+
+    <div class="footer">
+      Made with ❤️ for Gurijepalli Village
+      <br />
+      #MANUROY
+    </div>
   </main>
 
+  <nav class="bottom-nav">
+    <div class="bottom-nav-inner">
+      <button class="nav-item active" data-page="home">
+        <span>🏠</span>
+        Home
+      </button>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>© 2026 Gurijepalli Village</p>
-    <p>మన ఊరు • మన గర్వం</p>
-  </footer>
+      <button class="nav-item" data-page="photos">
+        <span>📸</span>
+        Photos
+      </button>
 
+      <button class="nav-item" data-page="messages">
+        <span>💬</span>
+        Messages
+      </button>
 
-  <!-- SUPABASE -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+      <button class="nav-item" data-page="search">
+        <span>🔎</span>
+        Search
+      </button>
+
+      <button class="nav-item" data-page="about">
+        <span>ℹ️</span>
+        About
+      </button>
+    </div>
+  </nav>
 
   <script>
-
-    /* ================================
-       SUPABASE CONFIG
-    ================================= */
-
     const SUPABASE_URL =
-      "https://YOUR-PROJECT.supabase.co";
+      "https://wxspgshtgcgkjctlckxy.supabase.co";
 
-    const SUPABASE_ANON_KEY =
-      "YOUR-SUPABASE-ANON-KEY";
+    const SUPABASE_KEY =
+      "sb_publishable_KjU87yCYbuzdiV3_pi6uiQ_6H35oOvj";
 
     const STORAGE_BUCKET = "photos";
 
-    const supabaseClient =
-      window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY
-      );
-
-
-    /* ================================
-       GLOBAL VARIABLES
-    ================================= */
+    const supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
 
     let allPosts = [];
+    let allMessages = [];
 
-
-    /* ================================
-       HELPER FUNCTIONS
-    ================================= */
-
-    function escapeHTML(value) {
-
-      if (value === null || value === undefined) {
-        return "";
-      }
-
-      return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-    }
-
+    const $ = (id) => document.getElementById(id);
 
     function showNotice(message, type = "success") {
+      const notice = $("notice");
 
-      const element =
-        document.getElementById("uploadMessage");
-
-      if (!element) {
-        alert(message);
-        return;
-      }
-
-      element.textContent = message;
-      element.className =
-        "message " + type;
-
-      element.style.display = "block";
+      notice.textContent = message;
+      notice.className = "notice show " + type;
 
       setTimeout(() => {
-        element.style.display = "none";
-      }, 3500);
+        notice.className = "notice";
+      }, 4000);
     }
 
-
-    function formatDate(dateValue) {
-
-      if (!dateValue) {
-        return "";
-      }
-
-      const date = new Date(dateValue);
-
-      if (isNaN(date.getTime())) {
-        return "";
-      }
-
-      return date.toLocaleDateString(
-        "en-IN",
-        {
-          day: "2-digit",
-          month: "short",
-          year: "numeric"
-        }
-      );
+    function escapeHTML(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
     }
 
+    function formatDate(value) {
+      if (!value) return "";
 
-    /* ================================
-       NAVIGATION
-    ================================= */
+      const date = new Date(value);
 
-    document
-      .querySelectorAll(".nav-btn")
-      .forEach((button) => {
+      if (Number.isNaN(date.getTime())) return "";
 
-        button.addEventListener("click", () => {
+      return date.toLocaleString("en-IN");
+    }
 
-          const page =
-            button.dataset.page;
-
-          document
-            .querySelectorAll(".nav-btn")
-            .forEach((btn) => {
-              btn.classList.remove("active");
-            });
-
-          button.classList.add("active");
-
-          document
-            .querySelectorAll(".page")
-            .forEach((section) => {
-              section.classList.remove("active");
-            });
-
-          document
-            .getElementById(page)
-            .classList.add("active");
-
-          if (page === "home") {
-            loadHomePosts();
-          }
-
-          if (page === "photos") {
-            loadPhotos();
-          }
-
-          window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-          });
-
-        });
-
+    function openPage(pageName) {
+      document.querySelectorAll(".page").forEach((page) => {
+        page.classList.remove("active");
       });
 
+      const target = $(pageName);
 
-    /* ================================
-       GET POST COUNTS
-    ================================= */
+      if (target) {
+        target.classList.add("active");
+      }
 
-    async function getPostCounts(postId) {
-
-      const [
-        likesResult,
-        commentsResult
-      ] = await Promise.all([
-
-        supabaseClient
-          .from("reactions")
-          .select("id", {
-            count: "exact",
-            head: true
-          })
-          .eq("post_id", postId)
-          .eq("reaction", "like"),
-
-        supabaseClient
-          .from("comments")
-          .select("id", {
-            count: "exact",
-            head: true
-          })
-          .eq("post_id", postId)
-
-      ]);
-
-
-      return {
-
-        likes:
-          likesResult.count || 0,
-
-        comments:
-          commentsResult.count || 0
-
-      };
-
-    }
-
-
-    /* ================================
-       LOAD COUNTS FOR ALL POSTS
-    ================================= */
-
-    async function loadPostCounts(posts) {
-
-      const counts =
-        await Promise.all(
-
-          posts.map(async (post) => {
-
-            const result =
-              await getPostCounts(post.id);
-
-            return [
-              post.id,
-              result
-            ];
-
-          })
-
+      document.querySelectorAll("[data-page]").forEach((button) => {
+        button.classList.toggle(
+          "active",
+          button.dataset.page === pageName &&
+          button.classList.contains("nav-item")
         );
+      });
 
+      $("menuPanel").classList.remove("open");
 
-      return Object.fromEntries(counts);
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
 
+      if (pageName === "photos") loadPhotos();
+      if (pageName === "messages") loadMessages();
+      if (pageName === "home") loadHomePosts();
     }
 
+    document.querySelectorAll("[data-page]").forEach((button) => {
+      button.addEventListener("click", () => {
+        openPage(button.dataset.page);
+      });
+    });
 
-    /* ================================
-       REFRESH SINGLE POST COUNTS
-    ================================= */
+    $("menuBtn").addEventListener("click", () => {
+      $("menuPanel").classList.toggle("open");
+    });
 
-    async function refreshPostCounts(
-      postId,
-      card
-    ) {
+    $("photoFile").addEventListener("change", () => {
+      const file = $("photoFile").files[0];
+      const preview = $("previewImage");
 
-      if (!card) {
+      if (!file) {
+        preview.style.display = "none";
+        preview.src = "";
         return;
       }
 
-      const counts =
-        await getPostCounts(postId);
-
-
-      const likeCount =
-        card.querySelector(
-          ".like-count"
-        );
-
-      const commentCount =
-        card.querySelector(
-          ".comment-count"
-        );
-
-
-      if (likeCount) {
-        likeCount.textContent =
-          counts.likes;
-      }
-
-
-      if (commentCount) {
-        commentCount.textContent =
-          counts.comments;
-      }
-
-    }
-
-
-    /* ================================
-       LOAD HOME POSTS
-    ================================= */
+      preview.src = URL.createObjectURL(file);
+      preview.style.display = "block";
+    });
 
     async function loadHomePosts() {
-
-      const container =
-        document.getElementById(
-          "homePosts"
-        );
-
-      if (!container) {
-        return;
-      }
+      const container = $("homePosts");
 
       container.innerHTML =
         '<div class="loading">Loading posts...</div>';
 
-
-      const { data, error } =
-        await supabaseClient
-
-          .from("posts")
-
-          .select("*")
-
-          .order(
-            "created_at",
-            {
-              ascending: false
-            }
-          );
-
+      const { data, error } = await supabaseClient
+        .from("posts")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(6);
 
       if (error) {
-
-        console.error(error);
-
-        container.innerHTML = `
-          <div class="empty">
-            Unable to load posts.
-          </div>
-        `;
-
+        container.innerHTML =
+          '<div class="empty">Posts could not be loaded.</div>';
         return;
       }
-
 
       allPosts = data || [];
-
-
-      const counts =
-        await loadPostCounts(
-          allPosts
-        );
-
-
-      allPosts.forEach((post) => {
-
-        post._likes =
-          counts[post.id]?.likes || 0;
-
-        post._comments =
-          counts[post.id]?.comments || 0;
-
-      });
-
-
-      renderPosts(
-        container,
-        allPosts
-      );
-
+      renderPosts(container, allPosts);
     }
 
-
-    /* ================================
-       LOAD PHOTOS
-    ================================= */
-
     async function loadPhotos() {
-
-      const container =
-        document.getElementById(
-          "photoPosts"
-        );
-
-      if (!container) {
-        return;
-      }
+      const container = $("photoList");
 
       container.innerHTML =
         '<div class="loading">Loading photos...</div>';
 
-
-      const { data, error } =
-        await supabaseClient
-
-          .from("posts")
-
-          .select("*")
-
-          .order(
-            "created_at",
-            {
-              ascending: false
-            }
-          );
-
+      const { data, error } = await supabaseClient
+        .from("posts")
+        .select("*")
+        .order("created_at", { ascending: false });
 
       if (error) {
-
-        console.error(error);
-
-        container.innerHTML = `
-          <div class="empty">
-            Unable to load photos.
-          </div>
-        `;
-
+        container.innerHTML =
+          '<div class="empty">Photos could not be loaded.</div>';
         return;
       }
-
 
       allPosts = data || [];
-
-
-      const counts =
-        await loadPostCounts(
-          allPosts
-        );
-
-
-      allPosts.forEach((post) => {
-
-        post._likes =
-          counts[post.id]?.likes || 0;
-
-        post._comments =
-          counts[post.id]?.comments || 0;
-
-      });
-
-
-      renderPosts(
-        container,
-        allPosts
-      );
-
+      renderPosts(container, allPosts);
     }
 
-
-    /* ================================
-       RENDER POSTS
-    ================================= */
-
-    function renderPosts(
-      container,
-      posts
-    ) {
-
-      if (!posts || posts.length === 0) {
-
-        container.innerHTML = `
-          <div class="empty">
-            No photos available yet.
-          </div>
-        `;
-
+    function renderPosts(container, posts) {
+      if (!posts.length) {
+        container.innerHTML =
+          '<div class="empty">No photos or posts available yet.</div>';
         return;
       }
 
+      container.innerHTML = posts.map((post) => {
+        const imageURL = post.image_url || post.image || "";
+
+        return `
+          <article class="card post-card">
+            ${
+              imageURL
+                ? `<img src="${escapeHTML(imageURL)}" alt="${escapeHTML(
+                    post.name || "Village photo"
+                  )}" />`
+                : ""
+            }
+
+            <div class="post-content">
+              <h3>${escapeHTML(post.name || "Village Post")}</h3>
+
+              <p>${escapeHTML(post.description || "")}</p>
+
+              <div class="meta">
+                ${formatDate(post.created_at)}
+              </div>
+
+              <div class="actions">
+                <button
+                  class="btn btn-success like-btn"
+                  data-id="${escapeHTML(post.id)}"
+                >
+                  ❤️ Like
+                </button>
+
+                <button
+                  class="btn btn-secondary comment-btn"
+                  data-id="${escapeHTML(post.id)}"
+                >
+                  💬 Comment
+                </button>
+
+                <button
+                  class="btn btn-danger report-btn"
+                  data-id="${escapeHTML(post.id)}"
+                >
+                  🚩 Report
+                </button>
+              </div>
+
+              <div
+                class="comment-box"
+                id="comments-${escapeHTML(post.id)}"
+              ></div>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      attachPostEvents();
+    }
+
+    function attachPostEvents() {
+      document.querySelectorAll(".like-btn").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const name = prompt("Enter your name:");
+
+          if (!name) return;
+
+          const postId = button.dataset.id;
+
+          let result = await supabaseClient
+            .from("reactions")
+            .insert({
+              post_id: postId,
+              user_name: name,
+              reaction: "like"
+            });
+
+          if (result.error) {
+            result = await supabaseClient
+              .from("reactions")
+              .insert({
+                post_id: postId,
+                name: name,
+                reaction: "like"
+              });
+          }
+  
+if (result.error) {
+            alert(result.error.message || "Like failed.");
+            return;
+          }
+
+          showNotice("Liked successfully!");
+        });
+      });
+
+      document.querySelectorAll(".comment-btn").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const name = prompt("Enter your name:");
+          if (!name) return;
+
+          const comment = prompt("Write your comment:");
+          if (!comment) return;
+
+          const postId = button.dataset.id;
+
+          const { error } = await supabaseClient
+            .from("comments")
+            .insert({
+              post_id: postId,
+              user_name: name,
+              comment: comment
+            });
+
+          if (error) {
+            alert(error.message || "Comment failed.");
+            return;
+          }
+
+          showNotice("Comment added successfully!");
+        });
+      });
+
+      document.querySelectorAll(".report-btn").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const reason = prompt("Enter report reason:");
+
+          if (!reason) return;
+
+          const postId = button.dataset.id;
+
+          const { error } = await supabaseClient
+            .from("reports")
+            .insert({
+              post_id: postId,
+              reason: reason
+            });
+
+          if (error) {
+            alert(error.message || "Report failed.");
+            return;
+          }
+
+          showNotice("Report submitted.");
+        });
+      });
+    }
+
+    $("uploadForm").addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const title = $("photoName").value.trim();
+      const description = $("photoDescription").value.trim();
+      const file = $("photoFile").files[0];
+
+      if (!file) {
+        showNotice("Please choose a photo.", "error");
+        return;
+      }
+
+      try {
+        const fileName =
+          Date.now() + "-" + file.name.replace(/\s+/g, "-");
+
+        const filePath = "uploads/" + fileName;
+
+        const { error: uploadError } = await supabaseClient.storage
+          .from(STORAGE_BUCKET)
+          .upload(filePath, file);
+
+        if (uploadError) {
+          showNotice(uploadError.message, "error");
+          return;
+        }
+
+        const { data: publicData } = supabaseClient.storage
+          .from(STORAGE_BUCKET)
+          .getPublicUrl(filePath);
+
+        const { error: insertError } = await supabaseClient
+          .from("posts")
+          .insert({
+            name: title,
+            description: description,
+            image_url: publicData.publicUrl
+          });
+
+        if (insertError) {
+          showNotice(insertError.message, "error");
+          return;
+        }
+
+        $("uploadForm").reset();
+        $("previewImage").style.display = "none";
+        $("previewImage").src = "";
+
+        showNotice("Photo uploaded successfully!");
+        await loadPhotos();
+      } catch (error) {
+        console.error(error);
+        showNotice("Upload failed.", "error");
+      }
+    });
+
+    $("messageForm").addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const name = $("messageName").value.trim();
+      const message = $("messageText").value.trim();
+
+      const { error } = await supabaseClient
+        .from("messages")
+        .insert({
+          user_name: name,
+          message: message
+        });
+
+      if (error) {
+        showNotice(error.message, "error");
+        return;
+      }
+
+      $("messageForm").reset();
+      showNotice("Message sent successfully!");
+      await loadMessages();
+    });
+
+    async function loadMessages() {
+      const container = $("messageList");
 
       container.innerHTML =
-        posts.map((post) => {
+        '<div class="loading">Loading messages...</div>';
 
-          const imageURL =
-            post.image_url ||
-            post.image ||
-            "";
+      const { data, error } = await supabaseClient
+        .from("messages")
+        .select("*")
+        .order("created_at", { ascending: false });
 
-          const likes =
-            post._likes ?? 0;
+      if (error) {
+        container.innerHTML =
+          '<div class="empty">Messages could not be loaded.</div>';
+        return;
+      }
 
-          const comments =
-            post._comments ?? 0;
+      allMessages = data || [];
 
+      if (!allMessages.length) {
+        container.innerHTML =
+          '<div class="empty">No messages yet.</div>';
+        return;
+      }
 
-          return `
+      container.innerHTML = allMessages.map((message) => `
+        <div class="card">
+          <h3>${escapeHTML(message.user_name || "Anonymous")}</h3>
+          <p>${escapeHTML(message.message || "")}</p>
+          <div class="meta">${formatDate(message.created_at)}</div>
+        </div>
+      `).join("");
+    }
 
-            <article
-              class="post-card"
-              data-id="${escapeHTML(post.id)}"
-            >
+    $("searchBtn").addEventListener("click", () => {
+      const query = $("searchInput").value.trim().toLowerCase();
 
-              ${
-                imageURL
-                  ? `
-                    <img
-                      class="post-image"
-                      src="${escapeHTML(imageURL)}"
-                      alt="Gurijepalli Village Photo"
-                      loading="lazy"
-                    />
-                  `
-                  : ""
-              }
+      if (!query) {
+        $("searchResults").innerHTML =
+          '<div class="empty">Enter something to search.</div>';
+        return;
+      }
 
+      const postResults = allPosts.filter((post) =>
+        `${post.name || ""} ${post.description || ""}`
+          .toLowerCase()
+          .includes(query)
+      );
 
-              <div class="post-content">
+      const messageResults = allMessages.filter((message) =>
+        `${message.user_name || ""} ${message.message || ""}`
+          .toLowerCase()
+          .includes(query)
+      );
 
-                <h3 class="post-title">
-                  Gurijepalli Village
-                </h3>
+      let html = "";
 
+      postResults.forEach((post) => {
+        html += `
+          <div class="card" style="margin-bottom:12px;">
+            <h3>${escapeHTML(post.name || "Village Post")}</h3>
+            <p>${escapeHTML(post.description || "")}</p>
+          </div>
+        `;
+      });
 
-                <p class="post-description">
-                  ${escapeHTML(
-                    post.description ||
-                    post.caption ||
-                    ""
-                  )}
-                </p>
+      messageResults.forEach((message) => {
+        html += `
+          <div class="card" style="margin-bottom:12px;">
+            <h3>${escapeHTML(message.user_name || "Anonymous")}</h3>
+            <p>${escapeHTML(message.message || "")}</p>
+          </div>
+        `;
+      });
 
+      $("searchResults").innerHTML =
+        html || '<div class="empty">No results found.</div>';
+    });
 
-                <div class="post-meta">
-
-                  ${
-                    post.user_name ||
-                    post.uploader_name ||
-                    post.name
-                      ? `
-                        Uploaded by
-                        ${escapeHTML(
-                          post.user_name ||
-                          post.uploader_name ||
-                          post.name
-                        )}
-                      `
-                      : ""
-                  }
-
-                  ${
-                    post.created_at
-                      ? `
-                        • ${formatDate(
-                          post.created_at
-                        )}
-                      `
-                      : ""
-                  }
-
-                </div>
-
-
-                <div class="post-actions">
-
-                  <button
-                    class="btn like-btn"
-                    data-id="${escapeHTML(post.id)}"
-                    type="button"
-                  >
-                    ❤️ Like
-                    <span class="like-count">
-                      ${likes}
-                    </span>
-                  </button>
-
-
-                  <button
-                    class="btn comment-btn"
-                    data-id="${escapeHTML(post.id)}"
-                    type="button"
-                  >
-                    💬 Comment
-                    <span class="comment-count">
-                      ${comments}
-    
+    loadHomePosts();
+    loadMessages();
+  </script>
+</body>
+</html>
